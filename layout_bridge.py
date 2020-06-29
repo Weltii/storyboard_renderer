@@ -10,11 +10,12 @@ layouts = dict(
 
 def compile_layout(layout_name: str, storyboard: dict):
 	layout: MovieLayout = layouts[layout_name]
+	path = os.path.join(os.path.dirname(__file__), "output")
+	file_name = "output_1"
 	if layout:
-		path = os.path.join(os.path.dirname(__file__), "output")
-		file_name = "output_1.tex"
-		layout.save_file(path, file_name, layout.generate_file(storyboard))
+		layout.save_file(path, file_name + ".tex", layout.generate_file(storyboard))
 		compile_latex(path, file_name)
+	return str(os.path.join(path, file_name + ".pdf"))
 
 
 if __name__ == '__main__':

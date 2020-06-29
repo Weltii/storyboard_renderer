@@ -1,6 +1,9 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from layout_bridge import compile_layout
 import json
+
 
 app = FastAPI()
 
@@ -24,13 +27,12 @@ def read_root():
     return generate_html_response()
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
-
 @app.get("/storyboard/")
 def render_json(payload: str):
     j = json.loads(payload)
-    print(j["t"])
-    return {"message": "Auftrag angenommen"}
+    path = compile_layout("movie", j)
+    return {"pdf_path": path}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
