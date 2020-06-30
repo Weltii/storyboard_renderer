@@ -1,0 +1,91 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[
+	landscape,
+	a4paper,
+	margin=2cm
+]{geometry}
+\usepackage{graphicx}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+\usepackage{luacode}
+
+%\usepackage{fontspec}
+
+% \setmainfont{Courier}
+
+% Define here your author and title!
+\renewcommand{\title}{
+	%*title*
+}
+\renewcommand{\author}{
+	%*author*
+}
+
+% Commands to generate parts of the storyboard
+\newcommand{\storyboardFrameHead}[4]{
+	\vspace{1cm}
+
+	Scene: #1 \hspace{.5cm} Einstellung: #2 \hspace{.5cm} Abschnitt: #3
+	\hfill
+	TC: #4 % timecode
+}
+
+\newcommand{\storyboardFrameContent}[3]{
+	\vspace{.5cm}
+
+	\begin{tabular}{c p{.3\textwidth} p{.3\textwidth}}
+		\begin{minipage}[t]{.3\textwidth}
+			\vspace{-\ht\strutbox}\includegraphics[width=\textwidth]{#1}
+		\end{minipage} &
+		\begin{minipage}[t]{.3\textwidth}
+			\textbf{Bild} \\
+		#2
+		\end{minipage} &
+		\begin{minipage}[t]{.3\textwidth}
+			\textbf{Audio} \\
+			#3
+		\end{minipage}
+	\end{tabular}
+}
+
+\newcommand{\storyboardFrameFooter}[6]{
+	% one blank line is requierd!
+
+	\vspace{.5cm}
+	EG: \textbf{#1} \hspace{\fill}
+	P: \textbf{#2} \hspace{\fill}
+	Kamera: \textbf{#3} mm - \textbf{#4} - \textbf{#5} \hspace{\fill}
+	FX: \textbf{#6} \hspace{2cm}
+}
+
+% Defines a frame of the storyboard
+% #1 \storyboardFrameHeader
+% #2 \storyboardContent
+% #3 \storyboardFooter
+\newcommand{\storyboardFrame}[3]{
+	#1
+	#2
+	#3
+}
+
+% Defines a page of two storyboards
+% #1 \storyboardFrame
+% #2 \storyboardFrame2
+\newcommand{\storyboardPage}[2]{
+	#1
+	#2
+	\vspace{\fill}
+	\pagebreak
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Filmprojekt \enquote{\title}}
+\lfoot{\author - Stand \today}
+\rfoot{Page \thepage}
+
+\begin{document}
+%*frames*
+\end{document}
