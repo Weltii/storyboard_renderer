@@ -40,13 +40,13 @@ const storyboard = {
 }
 
 const processStoryboard = (value) => {
+  updateChuck();
   axios.get('http://127.0.0.1:8000/storyboard/', {
     params: {
       payload: JSON.parse(value)
     }
   })
   .then(function (response) {
-    console.log(response);
     document.querySelector('#pdf-viewer').src = `http://127.0.0.1:8000/${response.data.path}`
   })
   .catch(function (error) {
@@ -85,3 +85,19 @@ document.querySelector('#process-button').addEventListener("click", () => {
 )});
 
 
+const updateChuck = () => {
+  const url = "https://api.chucknorris.io/jokes/random";
+  axios.get(url)
+  .then(function (response) {
+    document.querySelector('#chuck-norris').innerText = response.data.value
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+}
+
+
+updateChuck();
