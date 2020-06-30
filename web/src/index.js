@@ -65,9 +65,7 @@ require('brace/theme/monokai');
 ace.prototype = ace.edit("editor");
 ace.prototype.getSession().setMode("ace/mode/javascript");
 ace.prototype.setTheme("ace/theme/monokai");
-let startContent = localStorage.lastStoryboard ? localStorage.lastStoryboard : JSON.stringify({
-  storyboard
-}, null, "\t");
+let startContent = localStorage.lastStoryboard ? localStorage.lastStoryboard : JSON.stringify(storyboard, null, "\t");
 ace.prototype.getSession().setValue(startContent);
 
 ace.prototype.getSession().on("change", () => {
