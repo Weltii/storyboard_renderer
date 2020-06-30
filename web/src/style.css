@@ -1,0 +1,10 @@
+body {
+  background-color: gray;
+}
+
+.tab-content {
+  border: none;
+  float: right;
+  height: 800px;
+  width: 50%;
+}

@@ -1,5 +1,8 @@
 output/
 output/*
+web/node_modules/*
+web/node_modules/
+web/node_modules
 
 .idea/
 .idea/*
