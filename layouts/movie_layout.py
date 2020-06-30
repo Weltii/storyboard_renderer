@@ -28,6 +28,24 @@ class MovieLayout(AbstractLayout):
 			"\n\t\t\t{%s}" \
 			"\n\t\t}" \
 			"\n\t}"
+		self.required_frame_data = [
+			"scene",
+			"setting",
+			"section",
+			"timecode",
+			"image",
+			"image_description",
+			"audio_description",
+			"setting_size",
+			"perspective",
+			"focal_length",
+			"camera_movement",
+			"camera_support",
+			"fx"
+		]
+
+	def get_required_frame_data(self):
+		return self.required_frame_data
 
 	def generate_frame(self, frame: dict):
 		if frame:
