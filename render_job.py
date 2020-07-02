@@ -1,7 +1,5 @@
 from typing import Type
-
 from statics import JobSteps, JobErrors
-from statics import Layout
 
 
 class RenderJob:
