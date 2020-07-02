@@ -1,9 +1,11 @@
+from typing import Type
+
 from statics import JobSteps, JobErrors
 from statics import Layout
 
 
 class RenderJob:
-	def __init__(self, layout: Layout, storyboard: dict):
+	def __init__(self, layout: Type, storyboard: dict):
 		self.storyboard = storyboard
 		self.layout = layout
 		self.step = JobSteps.READY_TO_START
