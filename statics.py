@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from layouts.movie_layout import MovieLayout
 
 
 class JobSteps(Enum):
@@ -42,5 +42,6 @@ def get_default_storyboard_data_type(data_name: DefaultStoryboardData):
 	return "Wrong key!"
 
 
-class Layout(Enum):
-	MOVIE = "movie"
+Layouts = [
+	MovieLayout
+]

@@ -1,13 +1,15 @@
 from typing import Type
 
 from render_job import RenderJob
-from statics import DefaultStoryboardData, JobErrors, DefaultStoryboardDataTypes, get_default_storyboard_data_type
+from statics import DefaultStoryboardData, JobErrors, DefaultStoryboardDataTypes, get_default_storyboard_data_type, \
+	JobSteps
 
 is_missing = "{} is missing!"
 has_wrong_type = "{} has the wrong type, it must be '{}', but it is '{}'"
 
 
 def validate_data(job: RenderJob):
+	job.step = JobSteps.VALIDATE_DATA
 	required_data = job.layout().get_required_frame_data()
 	invalid_data = dict()
 	storyboard: dict = job.storyboard
