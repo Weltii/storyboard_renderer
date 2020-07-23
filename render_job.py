@@ -9,6 +9,8 @@ class RenderJob:
 		self.step = JobSteps.READY_TO_START
 		self.error_type = JobErrors.VALID
 		self.error_data = dict()
+		self.tex_file_path = ""
+		self.pdf = ""
 
 	def get_status_code(self):
 		if self.error_type == JobErrors.INVALID_LAYOUT:

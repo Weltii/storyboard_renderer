@@ -1,3 +1,4 @@
+import os
 from enum import Enum
 from layouts.movie_layout import MovieLayout
 
@@ -45,3 +46,5 @@ def get_default_storyboard_data_type(data_name: DefaultStoryboardData):
 Layouts = [
 	MovieLayout
 ]
+
+output_directory = path = os.path.join(os.path.dirname(__file__), "output")
