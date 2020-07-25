@@ -54,8 +54,8 @@ class MyTestCase(unittest.TestCase):
 	def test_check_frames_find_right_data(self):
 		layout = MovieLayout()
 		missing_data = layout.check_frames(get_frames(1, 1))
-		self.assertEqual(missing_data.missing_data[0].frame_number, 1)
-		self.assertEqual(missing_data.missing_data[0].missing_data, ["fx"])
+		self.assertEqual(missing_data.invalid_data[0].frame_number, 1)
+		self.assertEqual(missing_data.invalid_data[0].invalid_data, ["fx"])
 
 
 if __name__ == '__main__':
