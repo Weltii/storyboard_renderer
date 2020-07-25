@@ -24,7 +24,7 @@ def compile_latex(render_job: RenderJob):
 	subprocess.run(cmd, stdout=subprocess.PIPE)
 
 	if os.path.exists(pdf_file_path):
-		render_job.pdf = pdf_file_path
+		render_job.pdf_file_path = pdf_file_path
 	else:
 		render_job.error_type = JobErrors.COMPILE_PDF_ERROR
 		with open(log_file_path, 'r') as log_file:

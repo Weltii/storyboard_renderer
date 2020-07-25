@@ -5,11 +5,12 @@ from latex_bridge import compile_latex
 from layouts.movie_layout import MovieLayout
 from render_job import RenderJob
 from statics import JobErrors, output_directory
+from storyboard import Storyboard
 from utils.content_generator import compile_layout
 
 
 def generate_storyboard():
-	return dict(
+	return Storyboard(
 		title="ExampleTitle",
 		author="Bernhard Brueckenpfeiler",
 		frames=[
@@ -47,8 +48,8 @@ class TestLatexBridge(unittest.TestCase):
 		compile_latex(render_job)
 
 		self.assertEqual(render_job.error_type, JobErrors.VALID)
-		self.assertIsNotNone(render_job.pdf)
-		self.assertTrue(os.path.exists(render_job.pdf))
+		self.assertIsNotNone(render_job.pdf_file_path)
+		self.assertTrue(os.path.exists(render_job.pdf_file_path))
 		remove_files(render_job.tex_file_path.replace(".tex", ""))
 
 	def test_compile_pdf_tex_file_not_found(self):

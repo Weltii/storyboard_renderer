@@ -3,7 +3,7 @@ from datetime import datetime
 from layouts.abstract_layout import AbstractLayout, TemplateNotFound
 from render_job import RenderJob
 from statics import JobErrors, JobSteps, output_directory
-from utils.io import save_tex_file
+from utils.save_files import save_tex_file
 
 
 def compile_layout(render_job: RenderJob):
@@ -12,7 +12,7 @@ def compile_layout(render_job: RenderJob):
 
 	content = __generate_content(render_job)
 	if content:
-		file_name = f"{render_job.storyboard['title']}_{datetime.now().timestamp()}.tex"
+		file_name = f"{render_job.storyboard.title}_{datetime.now().timestamp()}.tex"
 		__save_file(file_name, content, render_job)
 
 
