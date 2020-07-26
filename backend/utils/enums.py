@@ -19,5 +19,9 @@ class Status(Enum):
     VALID = "valid"
 
 
-class LayoutNames(Enum):
+class LayoutName(Enum):
     EASY_LAYOUT = "EasyLayout"
+
+
+class LayoutNameReverse(Enum):
+    EasyLayout = "EASY_LAYOUT"

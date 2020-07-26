@@ -3,7 +3,7 @@ from typing import List
 
 from backend.classes.storyboard import Storyboard
 from backend.layouts.easy_layout import EasyLayout
-from backend.utils.enums import LayoutNames
+from backend.utils.enums import LayoutName
 from backend.utils.utils import load_file_as_string
 
 frame = dict(dict(image="path_to_file", image_description="image description"))
@@ -143,7 +143,7 @@ class EasyLayoutTest(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_get_name(self):
-        self.assertEqual(EasyLayout.get_name(), LayoutNames.EASY_LAYOUT)
+        self.assertEqual(EasyLayout.get_name(), LayoutName.EASY_LAYOUT)
 
     def test_get_description(self):
         self.assertEqual(

@@ -1,34 +1,34 @@
-from typing import Type
-from statics import JobSteps, JobErrors
+from pydantic import BaseModel
+
+from backend.utils.enums import StepType, Status, LayoutName
 from storyboard import Storyboard
 
 
-class Job:
-    def __init__(self, layout: str, storyboard: Storyboard):
-        self.storyboard = storyboard
-        self.layout = layout
-        self.step = JobSteps.READY_TO_START
-        self.status = JobErrors.VALID
-        self.status_data = dict()
-        self.tex_file_path = ""
-        self.pdf_file_path = ""
+class Job(BaseModel):
+    storyboard: Storyboard
+    layout: str
+    step: StepType = StepType.READY_TO_START
+    status: Status = Status.VALID
+    status_data: dict = dict
+    tex_file_path: str = ""
+    pdf_file_path: str = ""
 
     def get_status_code(self):
-        if self.status == JobErrors.INVALID_LAYOUT:
+        if self.status == Status.INVALID_LAYOUT:
             return 404
-        if self.status == JobErrors.INVALID_DATA:
+        if self.status == Status.INVALID_DATA:
             return 404
-        if self.status == JobErrors.GENERATE_TEX_ERROR:
+        if self.status == Status.GENERATE_TEX_ERROR:
             return 500
-        if self.status == JobErrors.COMPILE_PDF_ERROR:
+        if self.status == Status.COMPILE_PDF_ERROR:
             return 500
-        if self.status == JobErrors.UNKNOWN_ERROR:
+        if self.status == Status.UNKNOWN_ERROR:
             return 500
-        if self.status == JobErrors.VALID:
+        if self.status == Status.VALID:
             return 200
         return 500
 
-    def __dict__(self):
+    def to_dict(self):
         return dict(
             # storyboard=self.storyboard.to_dict(),
             layout=self.layout,

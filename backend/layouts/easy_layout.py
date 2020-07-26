@@ -3,14 +3,14 @@ from typing import List
 
 from backend.classes.storyboard import Storyboard
 from backend.layouts.abstract_layout import AbstractLayout
-from backend.utils.enums import LayoutNames
+from backend.utils.enums import LayoutName
 from backend.utils.utils import load_file_as_string
 
 
 class EasyLayout(AbstractLayout):
     @staticmethod
     def get_name():
-        return LayoutNames.EASY_LAYOUT
+        return LayoutName.EASY_LAYOUT
 
     @staticmethod
     def get_description():
