@@ -25,9 +25,9 @@ class AbstractLayout(ABC):
         """
         Returns a dict with data_name = type of the data
         Example: dict(
-                image="str"
-                image_description="str"
-                focal_length="int"
+                image=str
+                image_description=str
+                focal_length=int
             )
         :return:
         """

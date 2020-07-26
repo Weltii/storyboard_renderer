@@ -55,7 +55,7 @@ class EasyLayout(AbstractLayout):
 
     @staticmethod
     def get_required_frame_data() -> dict:
-        return dict(image="str", image_description="str")
+        return dict(image=str, image_description=str)
 
     @staticmethod
     def _generate_frame_string(frame: dict) -> str:

@@ -9,7 +9,7 @@ class Job(BaseModel):
     layout: str
     step: StepType = StepType.READY_TO_START
     status: Status = Status.VALID
-    status_data: dict = dict
+    status_data: dict = dict()
     tex_file_path: str = ""
     pdf_file_path: str = ""
 

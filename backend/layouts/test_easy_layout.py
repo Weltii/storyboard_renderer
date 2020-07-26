@@ -154,7 +154,7 @@ class EasyLayoutTest(unittest.TestCase):
     def test_get_required_frame_data(self):
         self.assertEqual(
             EasyLayout.get_required_frame_data(),
-            dict(image="str", image_description="str"),
+            dict(image=str, image_description=str),
         )
 
 
