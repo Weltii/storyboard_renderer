@@ -1,0 +1,82 @@
+\documentclass[10pt]{scrreprt}
+\usepackage[
+	a4paper,
+	margin=2cm
+]{geometry}
+\usepackage{graphicx}
+\usepackage[german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+%\usepackage{fontspec}
+
+\graphicspath{/home/benjamin/Projects/storyboard_renderer/storyboard_renderer_latex/fast_api_test/output/images/}
+
+% \setmainfont{Courier}
+
+% Define here your author and title!
+\renewcommand{\title}{
+	%*title*
+}
+\renewcommand{\author}{
+	%*author*
+}
+
+% Defines a frame of the storyboard
+% #1 \storyboardFrameHeader
+% #2 \storyboardContent
+% #3 \storyboardFooter
+\newcommand{\storyboardFrame}[2]{
+	\vspace{1cm}
+	\begin{tabular}{p{.4\textwidth} p{.6\textwidth}}
+		\begin{minipage}[t]{.4\textwidth}
+			\vspace{-\ht\strutbox}\includegraphics[width=\textwidth]{#1}
+		\end{minipage} &
+		\begin{minipage}[t]{.5\textwidth}
+			#2
+		\end{minipage}
+	\end{tabular}
+
+}
+
+% Defines a page of two storyboards
+% #1 \storyboardFrame
+% #2 \storyboardFrame2
+\newcommand{\storyboardPage}[5]{
+	#1
+	#2
+	#3
+	#4
+	#5
+	\vspace{\fill}
+	\pagebreak
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Filmprojekt \enquote{\title}}
+\lfoot{\author - Stand \today}
+\rfoot{Seite \thepage}
+
+\begin{document}
+% example
+%\storyboardPage
+%	{
+%		\storyboardFrame{example_image.png}{Text}
+%	}
+%	{
+%		\storyboardFrame{example_image.png}{Text 2}
+%	}
+%	{
+%		\storyboardFrame{example_image.png}{Text}
+%	}
+%	{
+%		\storyboardFrame{example_image.png}{Text 2}
+%	}
+%	{
+%		\storyboardFrame{example_image.png}{Text 2}
+%	}
+
+% the next line will be replaced
+%*frames*
+\end{document}

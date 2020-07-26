@@ -4,7 +4,7 @@ from storyboard import Storyboard
 
 
 class Job:
-    def __init__(self, layout: Type, storyboard: Storyboard):
+    def __init__(self, layout: str, storyboard: Storyboard):
         self.storyboard = storyboard
         self.layout = layout
         self.step = JobSteps.READY_TO_START
@@ -31,7 +31,7 @@ class Job:
     def __dict__(self):
         return dict(
             # storyboard=self.storyboard.to_dict(),
-            layout=self.layout.__name__,
+            layout=self.layout,
             step=str(self.step),
             error_type=str(self.status),
             error_data=self.status_data,

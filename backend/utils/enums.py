@@ -17,3 +17,7 @@ class Status(Enum):
     COMPILE_PDF_ERROR = "compile_pdf_error"
     UNKNOWN_ERROR = "unknown_error"
     VALID = "valid"
+
+
+class LayoutNames(Enum):
+    EASY_LAYOUT = "EasyLayout"

@@ -5,7 +5,7 @@ from typing import List
 class Storyboard(BaseModel):
     title: str
     author: str
-    frames: List[dict]
+    frames: List = []
 
-    def __dict__(self):
+    def to_dict(self) -> dict:
         return dict(title=self.title, author=self.author, frames=self.frames)
