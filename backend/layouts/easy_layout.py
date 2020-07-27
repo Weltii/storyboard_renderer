@@ -41,17 +41,13 @@ class EasyLayout(AbstractLayout):
 
     @staticmethod
     def generate_file_string(storyboard: Storyboard):
-        try:
-            template = load_file_as_string(EasyLayout.template_path)
-
-            template = template.replace("%*title*", storyboard.title)
-            template = template.replace("%*author*", storyboard.author)
-            template = template.replace(
-                "%*frame*", EasyLayout._generate_frames_string(storyboard.frames)
-            )
-            return template
-        except FileNotFoundError:
-            pass
+        template = load_file_as_string(EasyLayout.template_path)
+        template = template.replace("%*title*", storyboard.title)
+        template = template.replace("%*author*", storyboard.author)
+        template = template.replace(
+            "%*frame*", EasyLayout._generate_frames_string(storyboard.frames)
+        )
+        return template
 
     @staticmethod
     def get_required_frame_data() -> dict:

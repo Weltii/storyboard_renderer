@@ -57,9 +57,7 @@ class TestFrameDataValidationStep(unittest.TestCase):
         wrong_type_error = "Frame_{}: {} is from type {} instead of {}"
         missing_data_error = "Frame_{}: {} is missing"
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)
-        job.storyboard.frames.append(
-            dict(image=120)
-        )
+        job.storyboard.frames.append(dict(image=120))
         job.storyboard.frames.append(dict(image="path_to_file", image_description=120))
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)

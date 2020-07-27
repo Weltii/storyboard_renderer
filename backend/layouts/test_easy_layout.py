@@ -142,6 +142,19 @@ class EasyLayoutTest(unittest.TestCase):
         )
         self.assertEqual(result, expected_result)
 
+    @unittest.skip("assertRaises is not running, why ever")
+    def test_generate_file_string_missing_template(self):
+        frames: List[dict] = []
+        for x in range(5):
+            frames.append(frame)
+        storyboard = Storyboard(
+            title="test title", author="Bernhard Brueckenpfeiler", frames=frames
+        )
+        EasyLayout.template_path = "/not/a/valid/path"
+        self.assertRaises(
+            FileNotFoundError, EasyLayout.generate_file_string(storyboard)
+        )
+
     def test_get_name(self):
         self.assertEqual(EasyLayout.get_name(), LayoutName.EASY_LAYOUT)
 
