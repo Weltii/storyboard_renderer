@@ -1,10 +1,13 @@
+import os
 import unittest
 
 from backend.classes.render_job import Job
 from backend.classes.steps.frame_data_validation_step import FrameDataValidationStep
 from backend.classes.storyboard import Storyboard
+from backend.config import sample_data_path
 from backend.utils.enums import LayoutName, Status
 
+sample_image_path = os.path.join(sample_data_path, "sample_image.jpg")
 storyboard = Storyboard(
     title="test title", author="Bernhard Brueckenpfeiler", frames=[]
 )
@@ -15,7 +18,7 @@ class TestFrameDataValidationStep(unittest.TestCase):
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)
         for x in range(2):
             job.storyboard.frames.append(
-                dict(image="path_to_file", image_description="image_description")
+                dict(image=sample_image_path, image_description="image_description")
             )
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.VALID)

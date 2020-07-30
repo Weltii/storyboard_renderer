@@ -4,10 +4,11 @@ import unittest
 from backend.classes.render_job import Job
 from backend.classes.steps.generate_tex_file_step import GenerateTexFileStep
 from backend.classes.storyboard import Storyboard
-from backend.config import output_path
+from backend.config import output_path, sample_data_path
 from backend.utils.enums import LayoutName, Status
 from backend.utils.utils import write_file, load_file_as_string
 
+sample_image_path = os.path.join(sample_data_path, "sample_image.jpg")
 storyboard = Storyboard(
     title="test title", author="Bernhard Brueckenpfeiler", frames=[]
 )
@@ -92,8 +93,8 @@ expected_file_content = """\\documentclass[10pt]{scrreprt}
 
 % the next line will be replaced
 \\storyboardPage
-	{\\storyboardFrame{path_to_file}{image_description}}
-	{\\storyboardFrame{path_to_file}{image_description}}
+	{\\storyboardFrame{""" + sample_image_path + """}{image_description}}
+	{\\storyboardFrame{""" + sample_image_path + """}{image_description}}
 	{}
 	{}
 	{}
@@ -127,7 +128,7 @@ class TestGenerateTexFileStep(unittest.TestCase):
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)
         for x in range(2):
             job.storyboard.frames.append(
-                dict(image="path_to_file", image_description="image_description")
+                dict(image=sample_image_path, image_description="image_description")
             )
         GenerateTexFileStep.run(job)
         file_content = load_file_as_string(tex_file_path)
@@ -142,7 +143,7 @@ class TestGenerateTexFileStep(unittest.TestCase):
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)
         for x in range(2):
             job.storyboard.frames.append(
-                dict(image="path_to_file", image_description="image_description")
+                dict(image=sample_image_path, image_description="image_description")
             )
         write_file(tex_file_path, "nothing special")
         GenerateTexFileStep.run(job)
