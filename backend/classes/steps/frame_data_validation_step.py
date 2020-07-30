@@ -31,6 +31,8 @@ class FrameDataValidationStep(Step):
                         if not job.status_data.get("wrong_data_type", False):
                             job.status_data["wrong_data_type"] = dict()
                         job.status_data["wrong_data_type"][
+                            # the structure with a number as string in the dict is dirty
+                            # todo Change number as string inside the dict!
                             str(index)
                         ] = wrong_type.format(
                             index, data, type_a.__name__, type_b.__name__
