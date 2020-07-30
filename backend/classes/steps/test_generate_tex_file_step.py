@@ -12,7 +12,8 @@ sample_image_path = os.path.join(sample_data_path, "sample_image.jpg")
 storyboard = Storyboard(
     title="test title", author="Bernhard Brueckenpfeiler", frames=[]
 )
-expected_file_content = """\\documentclass[10pt]{scrreprt}
+expected_file_content = (
+    """\\documentclass[10pt]{scrreprt}
 \\usepackage[
 	a4paper,
 	margin=2cm
@@ -93,13 +94,18 @@ expected_file_content = """\\documentclass[10pt]{scrreprt}
 
 % the next line will be replaced
 \\storyboardPage
-	{\\storyboardFrame{""" + sample_image_path + """}{image_description}}
-	{\\storyboardFrame{""" + sample_image_path + """}{image_description}}
+	{\\storyboardFrame{"""
+    + sample_image_path
+    + """}{image_description}}
+	{\\storyboardFrame{"""
+    + sample_image_path
+    + """}{image_description}}
 	{}
 	{}
 	{}
 
 \\end{document}"""
+)
 
 
 def get_file_name(title: str):
@@ -122,7 +128,6 @@ def clear_output_directory(base_path: str):
 
 
 class TestGenerateTexFileStep(unittest.TestCase):
-
     def test_run_valid(self):
         GenerateTexFileStep.get_file_name = get_tex_file_name
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)

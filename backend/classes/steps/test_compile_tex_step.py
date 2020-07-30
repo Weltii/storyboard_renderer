@@ -16,12 +16,7 @@ def generate_storyboard():
     return Storyboard(
         title="ExampleTitle",
         author="Bernhard Brueckenpfeiler",
-        frames=[
-            dict(
-                image=sample_image_path,
-                image_description="Image description"
-            )
-        ],
+        frames=[dict(image=sample_image_path, image_description="Image description")],
     )
 
 
