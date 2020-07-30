@@ -6,13 +6,12 @@ from backend.classes.steps.generate_tex_file_step import GenerateTexFileStep
 from backend.classes.storyboard import Storyboard
 from backend.config import output_path
 from backend.utils.enums import LayoutName, Status
-from backend.utils.utils import write_file
+from backend.utils.utils import write_file, load_file_as_string
 
 storyboard = Storyboard(
     title="test title", author="Bernhard Brueckenpfeiler", frames=[]
 )
-template = """
-\\documentclass[10pt]{scrreprt}
+expected_file_content = """\\documentclass[10pt]{scrreprt}
 \\usepackage[
 	a4paper,
 	margin=2cm
@@ -30,10 +29,10 @@ template = """
 
 % Define here your author and title!
 \\renewcommand{\\title}{
-	%*title*
+	test title
 }
 \\renewcommand{\\author}{
-	%*author*
+	Bernhard Brueckenpfeiler
 }
 
 % Defines a frame of the storyboard
@@ -92,9 +91,14 @@ template = """
 %	}
 
 % the next line will be replaced
-%*frames*
-\\end{document}
-"""
+\\storyboardPage
+	{\\storyboardFrame{path_to_file}{image_description}}
+	{\\storyboardFrame{path_to_file}{image_description}}
+	{}
+	{}
+	{}
+
+\\end{document}"""
 
 
 def get_file_name(title: str):
@@ -117,6 +121,7 @@ def clear_output_directory(base_path: str):
 
 
 class TestGenerateTexFileStep(unittest.TestCase):
+
     def test_run_valid(self):
         GenerateTexFileStep.get_file_name = get_tex_file_name
         job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=storyboard)
@@ -125,9 +130,11 @@ class TestGenerateTexFileStep(unittest.TestCase):
                 dict(image="path_to_file", image_description="image_description")
             )
         GenerateTexFileStep.run(job)
+        file_content = load_file_as_string(tex_file_path)
         self.assertEqual(job.status, Status.VALID)
         self.assertEqual(job.tex_file_path, tex_file_path)
         self.assertTrue(os.path.exists(tex_file_path))
+        self.assertEqual(file_content, expected_file_content)
         clear_output_directory(save_path)
 
     def test_run_file_already_exists(self):
@@ -140,7 +147,10 @@ class TestGenerateTexFileStep(unittest.TestCase):
         write_file(tex_file_path, "nothing special")
         GenerateTexFileStep.run(job)
         self.assertEqual(job.status, Status.GENERATE_TEX_ERROR)
-        self.assertEqual(job.status_data["message"], f"Cannot save the .tex file, path {tex_file_path} already exists")
+        self.assertEqual(
+            job.status_data["message"],
+            f"Cannot save the .tex file, path {tex_file_path} already exists",
+        )
         clear_output_directory(save_path)
 
 

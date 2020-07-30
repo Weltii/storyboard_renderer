@@ -122,7 +122,7 @@ class EasyLayoutTest(unittest.TestCase):
         expected_result = expected_result.replace("%*title*", storyboard.title)
         expected_result = expected_result.replace("%*author*", storyboard.author)
         expected_result = expected_result.replace(
-            "%*frame*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
         )
         self.assertEqual(result, expected_result)
 
@@ -138,7 +138,7 @@ class EasyLayoutTest(unittest.TestCase):
         expected_result = expected_result.replace("%*title*", storyboard.title)
         expected_result = expected_result.replace("%*author*", storyboard.author)
         expected_result = expected_result.replace(
-            "%*frame*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
         )
         self.assertEqual(result, expected_result)
 

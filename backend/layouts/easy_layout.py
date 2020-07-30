@@ -45,7 +45,7 @@ class EasyLayout(AbstractLayout):
         template = template.replace("%*title*", storyboard.title)
         template = template.replace("%*author*", storyboard.author)
         template = template.replace(
-            "%*frame*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
         )
         return template
 
