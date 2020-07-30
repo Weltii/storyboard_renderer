@@ -6,7 +6,7 @@ class StepType(Enum):
     VALIDATE_LAYOUT = "validate_layout"
     VALIDATE_DATA = "validate_data"
     GENERATE_TEX_DOC = "generate_tex_doc"
-    COMPILE_PDF = "compile_pdf"
+    COMPILE_TEX = "compile_pdf"
     FINISHED = "finished"
 
 

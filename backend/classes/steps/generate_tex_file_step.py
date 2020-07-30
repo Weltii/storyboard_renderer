@@ -4,7 +4,7 @@ from backend.classes.render_job import Job
 from backend.classes.step import Step
 from backend.layouts.Layouts import Layouts
 from backend.layouts.abstract_layout import AbstractLayout
-from backend.utils.enums import Status
+from backend.utils.enums import Status, StepType
 from backend.utils.utils import save_tex_file, CustomFileExistsError
 
 
@@ -15,6 +15,9 @@ class GenerateTexFileStep(Step):
 
     @staticmethod
     def run(job: Job):
+        if job.status is not Status.VALID:
+            return
+        job.step = StepType.GENERATE_TEX_DOC
         layout: AbstractLayout = getattr(Layouts, job.layout, False).value
         file_string = layout.generate_file_string(job.storyboard)
         try:

@@ -4,7 +4,7 @@ import subprocess
 from backend.classes.render_job import Job
 from backend.classes.step import Step
 from backend.config import output_path, latex_compiler
-from backend.utils.enums import Status
+from backend.utils.enums import Status, StepType
 
 
 class CompileTexStep(Step):
@@ -12,7 +12,7 @@ class CompileTexStep(Step):
     def run(job: Job):
         if job.status is not Status.VALID:
             return
-        # job.step = Step.COMPILE_PDF
+        job.step = StepType.COMPILE_TEX
         if not os.path.exists(job.tex_file_path):
             job.status = Status.COMPILE_PDF_ERROR
             job.status_data = dict(

@@ -1,7 +1,7 @@
 from backend.classes.render_job import Job
 from backend.classes.step import Step
 from backend.layouts.Layouts import Layouts
-from backend.utils.enums import Status
+from backend.utils.enums import Status, StepType
 
 missing_data = "Frame_{}: {} is missing"
 wrong_type = "Frame_{}: {} is from type {} instead of {}"
@@ -10,6 +10,9 @@ wrong_type = "Frame_{}: {} is from type {} instead of {}"
 class FrameDataValidationStep(Step):
     @staticmethod
     def run(job: Job):
+        if job.status is not Status.VALID:
+            return
+        job.step = StepType.VALIDATE_DATA
         required_data = getattr(Layouts, job.layout).value.get_required_frame_data()
         for index, frame in enumerate(job.storyboard.frames):
             for data in required_data:
