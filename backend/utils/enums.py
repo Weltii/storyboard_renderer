@@ -22,6 +22,10 @@ class Status(Enum):
 class LayoutName(Enum):
     EASY_LAYOUT = "EasyLayout"
 
+    @staticmethod
+    def get_all():
+        return {i.name: i.value for i in LayoutName}
+
 
 class LayoutNameReverse(Enum):
     EasyLayout = "EASY_LAYOUT"

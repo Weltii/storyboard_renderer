@@ -15,7 +15,7 @@ class JobWorker:
         LayoutValidationStep(),
         FrameDataValidationStep(),
         GenerateTexFileStep(),
-        CompileTexStep()
+        CompileTexStep(),
     ]
 
     @staticmethod

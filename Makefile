@@ -10,5 +10,5 @@ start:
 increase_file_watches:
 	sudo sysctl fs.inotify.max_user_watches=500000
 
-format:
-	black backend
+black:
+	black ./

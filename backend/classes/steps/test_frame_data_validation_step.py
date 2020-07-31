@@ -11,9 +11,7 @@ sample_image_path = os.path.join(sample_data_path, "sample_image.jpg")
 
 
 def generate_storyboard():
-    return Storyboard(
-        title="test title", author="Bernhard Brueckenpfeiler", frames=[]
-    )
+    return Storyboard(title="test title", author="Bernhard Brueckenpfeiler", frames=[])
 
 
 class TestFrameDataValidationStep(unittest.TestCase):

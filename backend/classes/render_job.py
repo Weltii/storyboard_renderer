@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
-from backend.utils.enums import StepType, Status, LayoutName
-from storyboard import Storyboard
+from backend.classes.storyboard import Storyboard
+from backend.utils.enums import StepType, Status
 
 
 class Job(BaseModel):
