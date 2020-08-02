@@ -1,3 +1,6 @@
 fastapi
+starlette
 uvicorn
+pydantic
 regex
+coverage

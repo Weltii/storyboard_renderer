@@ -1,8 +1,13 @@
+# Custom
 output/
 output/*
 web/node_modules/*
 web/node_modules/
 web/node_modules
+
+.coverage
+
+################################################
 
 .idea/
 .idea/*

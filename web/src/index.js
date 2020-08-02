@@ -47,7 +47,8 @@ const processStoryboard = (value) => {
     }
   })
   .then(function (response) {
-    document.querySelector('#pdf-viewer').src = `http://127.0.0.1:8000/${response.data.path}`
+    console.log(response)
+    // document.querySelector('#pdf-viewer').src = `http://127.0.0.1:8000/${response.data.path}`
   })
   .catch(function (error) {
     console.log(error);
