@@ -12,3 +12,5 @@ sample_data_path = os.path.join(base_path, "sample_data")
 # I recommend lualatex or pdftex
 # If you wanna use lua code inside the templates, you need lualatex!
 latex_compiler = "lualatex"
+
+supported_image_types = [".png", ".jpg", ".jpeg"]
