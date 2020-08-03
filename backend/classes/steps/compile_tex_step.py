@@ -3,7 +3,7 @@ import subprocess
 
 from backend.classes.render_job import Job
 from backend.classes.step import Step
-from backend.config import output_path, latex_compiler
+from backend.config import latex_compiler
 from backend.utils.enums import Status, StepType
 
 
@@ -25,7 +25,7 @@ class CompileTexStep(Step):
         pdf_file_path = base_file_path + ".pdf"
         cmd = [
             f"{latex_compiler}",
-            f"-output-directory={output_path}",
+            f"-output-directory={job.project.output_directory}",
             "-interaction=nonstopmode",
             f"{job.tex_file_path}",
         ]
