@@ -88,7 +88,7 @@ class Project(BaseModel):
     def generate_new_project(path: str):
         if not os.path.exists(path) or len(os.listdir(path)) is not 0:
             raise DirectoryIsNotEmpty(
-                f"The directory {path} is not empty! "
+                f"The directory {path} is not empty or does not exists! "
                 f"Please create an empty directory for the project."
             )
 

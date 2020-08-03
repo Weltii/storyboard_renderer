@@ -7,7 +7,7 @@ from backend.classes.storyboard import Storyboard
 from backend.config import output_path, sample_data_path
 from backend.sample_data.sample_generator import (
     generate_sample_project,
-    remove_sample_project,
+    remove_project,
 )
 from backend.utils.enums import LayoutName, Status
 from backend.utils.utils import write_file, load_file_as_string
@@ -111,7 +111,7 @@ def get_tex_file_name(title: str):
 
 
 def clear_output_directory(job: Job):
-    remove_sample_project(job.project.path)
+    remove_project(job.project.path)
 
 
 class TestGenerateTexFileStep(unittest.TestCase):

@@ -5,7 +5,7 @@ from backend.classes.storyboard import Storyboard
 from backend.layouts.easy_layout import EasyLayout
 from backend.sample_data.sample_generator import (
     generate_sample_project,
-    remove_sample_project,
+    remove_project,
 )
 from backend.utils.enums import LayoutName
 from backend.utils.utils import load_file_as_string
@@ -133,7 +133,7 @@ class EasyLayoutTest(unittest.TestCase):
             "%*frames*", EasyLayout._generate_frames_string(project.storyboard.frames)
         )
         self.assertEqual(result, expected_result)
-        remove_sample_project(project.path)
+        remove_project(project.path)
 
     def test_generate_file_string_full_page(self):
         frames: List[dict] = []

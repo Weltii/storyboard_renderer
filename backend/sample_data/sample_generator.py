@@ -14,6 +14,6 @@ def generate_sample_project(path: str = None):
     return Project.generate_new_project(path)
 
 
-def remove_sample_project(path: str):
+def remove_project(path: str):
     if os.path.exists(path):
         rmtree(path)
