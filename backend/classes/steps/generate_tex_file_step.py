@@ -19,10 +19,12 @@ class GenerateTexFileStep(Step):
             return
         job.step = StepType.GENERATE_TEX_DOC
         layout: AbstractLayout = getattr(Layouts, job.layout, False).value
-        file_string = layout.generate_file_string(job.storyboard)
+        file_string = layout.generate_file_string(job.project)
         try:
             save_path = save_tex_file(
-                GenerateTexFileStep.get_file_name(job.storyboard.title), file_string
+                GenerateTexFileStep.get_file_name(job.project.storyboard.title),
+                file_string,
+                job.project.output_directory,
             )
             job.tex_file_path = save_path
         except CustomFileExistsError as exception:

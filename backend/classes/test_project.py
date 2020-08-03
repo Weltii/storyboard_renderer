@@ -55,8 +55,12 @@ class TestProject(unittest.TestCase):
         self.assertEqual(project.path, project_folder_path)
         self.assertEqual(project.storyboard, storyboard)
         self.assertEqual(project.image_hashes, [])
-        self.assertEqual(project.images_directory, os.path.join(project_folder_path, "images"))
-        self.assertEqual(project.output_directory, os.path.join(project_folder_path, "output"))
+        self.assertEqual(
+            project.images_directory, os.path.join(project_folder_path, "images")
+        )
+        self.assertEqual(
+            project.output_directory, os.path.join(project_folder_path, "output")
+        )
         remove_temporary_project_folder()
 
     def test_generate_image_hashes(self):

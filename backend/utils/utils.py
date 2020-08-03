@@ -45,17 +45,20 @@ def load_file_as_string(path: str) -> str:
     return string
 
 
-def save_tex_file(file_name: str, content: str):
+def save_tex_file(
+    file_name: str, content: str, output_directory_path: str = output_path
+):
     """
     Save a .tex file with the specified file_name and the specified content.
     Returns the path of saved file
     :param file_name:
     :param content:
+    :param output_directory_path: default is output_path
     :return: str
     """
-    if not os.path.exists(output_path):
-        os.mkdir(output_path)
-    path = os.path.join(output_path, file_name)
+    if not os.path.exists(output_directory_path):
+        os.mkdir(output_directory_path)
+    path = os.path.join(output_directory_path, file_name)
     if os.path.exists(path):
         exception = CustomFileExistsError()
         exception.path = path
