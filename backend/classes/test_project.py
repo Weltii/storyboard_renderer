@@ -45,12 +45,26 @@ def remove_temporary_project_folder():
 
 
 class TestProject(unittest.TestCase):
+    def test_init(self):
+        storyboard = Storyboard(
+            title="test storyboard", author="Bernhard Brueckenpfeiler", frames=[]
+        )
+        generate_temporary_project_folder(False, False)
+        project = Project(path=project_folder_path, storyboard=storyboard)
+        self.assertIsNotNone(project)
+        self.assertEqual(project.path, project_folder_path)
+        self.assertEqual(project.storyboard, storyboard)
+        self.assertEqual(project.image_hashes, [])
+        self.assertEqual(project.images_directory, os.path.join(project_folder_path, "images"))
+        self.assertEqual(project.output_directory, os.path.join(project_folder_path, "output"))
+        remove_temporary_project_folder()
+
     def test_generate_image_hashes(self):
         generate_temporary_project_folder()
         storyboard = Storyboard(
             title="test storyboard", author="Bernhard Brueckenpfeiler", frames=[]
         )
-        project = Project(project_folder_path, storyboard)
+        project = Project(path=project_folder_path, storyboard=storyboard)
         expected_image_hashes = [
             dict(file_type=".png", hash="00087e7ffffe2c00", file_name="sample_image_2"),
             dict(file_type=".jpg", hash="7f3f1e0c003e381f", file_name="sample_image_1"),

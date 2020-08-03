@@ -1,7 +1,9 @@
 import json
 import os
 from shutil import copyfile
-from typing import List
+from typing import List, Any
+
+from pydantic import BaseModel
 
 from backend.classes.storyboard import Storyboard
 from backend.config import supported_image_types, sample_data_path
@@ -16,18 +18,19 @@ from backend.utils.utils import (
 )
 
 
-class Project:
+class Project(BaseModel):
     path: str
     storyboard: Storyboard
-    image_hashes: List[dict]
-    images_directory: str
+    image_hashes: List[dict] = None
+    images_directory: str = None
+    output_directory: str = None
 
-    def __init__(self, path: str, storyboard: Storyboard):
-        self.path = path
-        self.storyboard = storyboard
+    def __init__(self, **data: Any):
+        super().__init__(**data)
         self.image_hashes = []
-        self.images_directory = os.path.join(path, "images")
+        self.images_directory = os.path.join(self.path, "images")
         self.generate_image_hashes()
+        self.output_directory = os.path.join(self.path, "output")
 
     def generate_image_hashes(self):
         if not os.path.exists(self.images_directory):
@@ -79,7 +82,7 @@ class Project:
             )
 
         storyboard: Storyboard = Storyboard.generate_from_file(storyboard_path)
-        return Project(path, storyboard)
+        return Project(path=path, storyboard=storyboard)
 
     @staticmethod
     def generate_new_project(path: str):
@@ -95,6 +98,7 @@ class Project:
                 os.path.join(sample_data_path, "sample_storyboard.json"),
                 storyboard_path,
             )
-
+        os.mkdir(os.path.join(path, "output"))
+        os.mkdir(os.path.join(path, "images"))
         storyboard: Storyboard = Storyboard.generate_from_file(storyboard_path)
-        return Project(path, storyboard)
+        return Project(path=path, storyboard=storyboard)
