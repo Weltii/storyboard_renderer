@@ -1,6 +1,7 @@
 import os
 import unittest
 
+from backend.classes.project import Project
 from backend.classes.render_job import Job
 from backend.classes.steps.frame_data_validation_step import FrameDataValidationStep
 from backend.classes.storyboard import Storyboard
@@ -14,11 +15,16 @@ def generate_storyboard():
     return Storyboard(title="test title", author="Bernhard Brueckenpfeiler", frames=[])
 
 
+def generate_project():
+    return Project(path="", storyboard=generate_storyboard())
+
+
 class TestFrameDataValidationStep(unittest.TestCase):
     def test_run_valid_frame_data(self):
-        job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=generate_storyboard())
+        project = generate_project()
+        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
         for x in range(2):
-            job.storyboard.frames.append(
+            job.project.storyboard.frames.append(
                 dict(image=sample_image_path, image_description="image_description")
             )
         FrameDataValidationStep.run(job)
@@ -26,9 +32,12 @@ class TestFrameDataValidationStep(unittest.TestCase):
 
     def test_run_data_is_missing(self):
         error_layout = "Frame_{}: {} is missing"
-        job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=generate_storyboard())
-        job.storyboard.frames.append(dict(image="path_to_file"))
-        job.storyboard.frames.append(dict(image_description="image_description"))
+        project = generate_project()
+        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
+        job.project.storyboard.frames.append(dict(image="path_to_file"))
+        job.project.storyboard.frames.append(
+            dict(image_description="image_description")
+        )
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
         self.assertEqual(
@@ -41,11 +50,14 @@ class TestFrameDataValidationStep(unittest.TestCase):
 
     def test_run_data_has_wrong_type(self):
         error_layout = "Frame_{}: {} is from type {} instead of {}"
-        job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=generate_storyboard())
-        job.storyboard.frames.append(
+        project = generate_project()
+        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
+        job.project.storyboard.frames.append(
             dict(image=120, image_description="image_description")
         )
-        job.storyboard.frames.append(dict(image="path_to_file", image_description=120))
+        job.project.storyboard.frames.append(
+            dict(image="path_to_file", image_description=120)
+        )
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
         self.assertEqual(
@@ -60,9 +72,12 @@ class TestFrameDataValidationStep(unittest.TestCase):
     def test_run_data_mixed_errors(self):
         wrong_type_error = "Frame_{}: {} is from type {} instead of {}"
         missing_data_error = "Frame_{}: {} is missing"
-        job = Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=generate_storyboard())
-        job.storyboard.frames.append(dict(image=120))
-        job.storyboard.frames.append(dict(image="path_to_file", image_description=120))
+        project = generate_project()
+        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
+        job.project.storyboard.frames.append(dict(image=120))
+        job.project.storyboard.frames.append(
+            dict(image="path_to_file", image_description=120)
+        )
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
         self.assertEqual(

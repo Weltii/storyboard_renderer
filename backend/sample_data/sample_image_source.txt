@@ -1,1 +1,2 @@
-https://pixabay.com/de/photos/mann-wildnis-natur-fluss-berg-1246233/
+sample_image.jpg: https://pixabay.com/de/photos/mann-wildnis-natur-fluss-berg-1246233/
+sample_image_2: https://pixabay.com/de/illustrations/explosion-explodieren-pop-art-1246507/

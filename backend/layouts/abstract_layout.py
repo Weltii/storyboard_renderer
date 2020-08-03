@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from backend.classes.storyboard import Storyboard
+from backend.classes.project import Project
 
 
 class AbstractLayout(ABC):
@@ -16,7 +16,7 @@ class AbstractLayout(ABC):
 
     @staticmethod
     @abstractmethod
-    def generate_file_string(storyboard: Storyboard):
+    def generate_file_string(project: Project):
         pass
 
     @staticmethod

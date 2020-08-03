@@ -11,6 +11,7 @@ from backend.classes.steps.layout_validation_step import LayoutValidationStep
 from backend.classes.storyboard import Storyboard
 from backend.config import sample_data_path
 from backend.job_worker import JobWorker
+from backend.sample_data.sample_generator import generate_sample_project
 from backend.utils.enums import LayoutName, Status, StepType
 
 
@@ -27,7 +28,7 @@ def generate_storyboard():
 
 
 def generate_job():
-    return Job(layout=LayoutName.EASY_LAYOUT.value, storyboard=generate_storyboard())
+    return Job(layout=LayoutName.EASY_LAYOUT.value, project=generate_sample_project())
 
 
 def remove_files(file_name_without_ending: str):
@@ -68,7 +69,7 @@ class TestJobWorker(unittest.TestCase):
 
     def test_job_worker_run_with_error(self):
         job = generate_job()
-        job.storyboard.frames[0] = dict(image=12,)
+        job.project.storyboard.frames[0] = dict(image=12,)
         JobWorker.run_job(
             job,
             [

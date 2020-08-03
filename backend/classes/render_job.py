@@ -1,11 +1,11 @@
 from pydantic import BaseModel
 
-from backend.classes.storyboard import Storyboard
+from backend.classes.project import Project
 from backend.utils.enums import StepType, Status
 
 
 class Job(BaseModel):
-    storyboard: Storyboard
+    project: Project
     layout: str
     step: StepType = StepType.READY_TO_START
     status: Status = Status.VALID

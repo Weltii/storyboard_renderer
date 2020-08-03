@@ -1,6 +1,7 @@
 import os
 from typing import List
 
+from backend.classes.project import Project
 from backend.classes.storyboard import Storyboard
 from backend.layouts.abstract_layout import AbstractLayout
 from backend.utils.enums import LayoutName
@@ -40,12 +41,13 @@ class EasyLayout(AbstractLayout):
         return ret
 
     @staticmethod
-    def generate_file_string(storyboard: Storyboard):
+    def generate_file_string(project: Project):
         template = load_file_as_string(EasyLayout.template_path)
-        template = template.replace("%*title*", storyboard.title)
-        template = template.replace("%*author*", storyboard.author)
+        template = template.replace("%*imagepath*", project.images_directory)
+        template = template.replace("%*title*", project.storyboard.title)
+        template = template.replace("%*author*", project.storyboard.author)
         template = template.replace(
-            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*frames*", EasyLayout._generate_frames_string(project.storyboard.frames)
         )
         return template
 

@@ -3,6 +3,10 @@ from typing import List
 
 from backend.classes.storyboard import Storyboard
 from backend.layouts.easy_layout import EasyLayout
+from backend.sample_data.sample_generator import (
+    generate_sample_project,
+    remove_project,
+)
 from backend.utils.enums import LayoutName
 from backend.utils.utils import load_file_as_string
 
@@ -114,31 +118,40 @@ class EasyLayoutTest(unittest.TestCase):
         frames: List[dict] = []
         for x in range(1):
             frames.append(frame)
-        storyboard = Storyboard(
-            title="test title", author="Bernhard Brueckenpfeiler", frames=frames
-        )
-        result = EasyLayout.generate_file_string(storyboard)
+        project = generate_sample_project()
+        project.storyboard.frames = frames
+        result = EasyLayout.generate_file_string(project)
         expected_result = load_easy_layout_template()
-        expected_result = expected_result.replace("%*title*", storyboard.title)
-        expected_result = expected_result.replace("%*author*", storyboard.author)
         expected_result = expected_result.replace(
-            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*imagepath*", project.images_directory
+        )
+        expected_result = expected_result.replace("%*title*", project.storyboard.title)
+        expected_result = expected_result.replace(
+            "%*author*", project.storyboard.author
+        )
+        expected_result = expected_result.replace(
+            "%*frames*", EasyLayout._generate_frames_string(project.storyboard.frames)
         )
         self.assertEqual(result, expected_result)
+        remove_project(project.path)
 
     def test_generate_file_string_full_page(self):
         frames: List[dict] = []
         for x in range(5):
             frames.append(frame)
-        storyboard = Storyboard(
-            title="test title", author="Bernhard Brueckenpfeiler", frames=frames
-        )
-        result = EasyLayout.generate_file_string(storyboard)
+        project = generate_sample_project()
+        project.storyboard.frames = frames
+        result = EasyLayout.generate_file_string(project)
         expected_result = load_easy_layout_template()
-        expected_result = expected_result.replace("%*title*", storyboard.title)
-        expected_result = expected_result.replace("%*author*", storyboard.author)
         expected_result = expected_result.replace(
-            "%*frames*", EasyLayout._generate_frames_string(storyboard.frames)
+            "%*imagepath*", project.images_directory
+        )
+        expected_result = expected_result.replace("%*title*", project.storyboard.title)
+        expected_result = expected_result.replace(
+            "%*author*", project.storyboard.author
+        )
+        expected_result = expected_result.replace(
+            "%*frames*", EasyLayout._generate_frames_string(project.storyboard.frames)
         )
         self.assertEqual(result, expected_result)
 
@@ -147,12 +160,11 @@ class EasyLayoutTest(unittest.TestCase):
         frames: List[dict] = []
         for x in range(5):
             frames.append(frame)
-        storyboard = Storyboard(
-            title="test title", author="Bernhard Brueckenpfeiler", frames=frames
-        )
+        project = generate_sample_project()
+        project.storyboard.frames = frames
         EasyLayout.template_path = "/not/a/valid/path"
         self.assertRaises(
-            FileNotFoundError, EasyLayout.generate_file_string(storyboard)
+            FileNotFoundError, EasyLayout.generate_file_string(project.storyboard)
         )
 
     def test_get_name(self):
