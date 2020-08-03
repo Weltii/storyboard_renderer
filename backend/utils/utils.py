@@ -1,7 +1,8 @@
 import os
 import re
+import webbrowser
 
-from backend.config import output_path
+from backend.config import output_path, api_url, api_port
 from PIL import Image
 import imagehash
 
@@ -118,3 +119,7 @@ def generate_file_hash(file_path: str) -> dict:
 def get_directory_of_file(file_path: str):
     index = file_path.rfind("/")
     return file_path[:index]
+
+
+def open_browser():
+    webbrowser.open_new(f"http://{api_url}:{str(api_port)}")

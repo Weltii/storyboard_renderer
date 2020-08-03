@@ -14,3 +14,9 @@ sample_data_path = os.path.join(base_path, "sample_data")
 latex_compiler = "lualatex"
 
 supported_image_types = [".png", ".jpg", ".jpeg"]
+
+# api settings
+
+# api url
+api_url = "0.0.0.0"
+api_port = 8000

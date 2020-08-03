@@ -21,7 +21,7 @@ class TestUtils(unittest.TestCase):
         output = base64_image_add_type(base64_string, image_type)
         self.assertEqual(output, expected_string)
 
-    @unittest.skip("Strange string change here, check this!") # TODO check the error!
+    @unittest.skip("Strange string change here, check this!")  # TODO check the error!
     def test_remove_base64_info(self):
         input_string = f"data:image/png;base64,{base64_string}"
         output = remove_base64_info(input_string)
