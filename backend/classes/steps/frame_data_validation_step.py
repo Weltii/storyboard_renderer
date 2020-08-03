@@ -10,11 +10,12 @@ wrong_type = "Frame_{}: {} is from type {} instead of {}"
 class FrameDataValidationStep(Step):
     @staticmethod
     def run(job: Job):
+        # TODO add a regex matching for paths and if it's a path, check if the path exists
         if job.status is not Status.VALID:
             return
         job.step = StepType.VALIDATE_DATA
         required_data = getattr(Layouts, job.layout).value.get_required_frame_data()
-        for index, frame in enumerate(job.storyboard.frames):
+        for index, frame in enumerate(job.project.storyboard.frames):
             for data in required_data:
                 if not frame.get(data, False):
                     job.status = Status.INVALID_DATA
