@@ -12,7 +12,7 @@ from backend.config import output_path
 from backend.job_worker import JobWorker
 from backend.layouts.Layouts import Layouts
 from backend.project_handler import ProjectHandler
-from backend.utils.enums import LayoutName
+from backend.utils.enums import LayoutName, Status
 from backend.utils.utils import StoryboardFileNotFound, DirectoryIsNotEmpty
 
 
@@ -51,6 +51,18 @@ def add_endpoints(app: FastAPI):
             raise HTTPException(detail=e.message, status_code=400)
         except FileNotFoundError:
             raise HTTPException(detail=f"Path: '{path}' cannot be found", status_code=404)
+
+    @app.patch("/project/current/storyboard", response_model=Job)
+    async def overwrite_storyboard(storyboard: Storyboard):
+        project = project_handler.current_project
+        if not project:
+            raise HTTPException(status_code=404, detail="No project can be found, please load one!")
+        project.storyboard = storyboard
+        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
+        render_job_worker.run_job(job, JobWorker.validate_frames_step)
+        if job.status is Status.VALID:
+            project_handler.save_project(project)
+        return job
 
     @app.post("/render_project/current", response_model=Job)
     async def render_project():

@@ -17,6 +17,9 @@ class JobWorker:
         GenerateTexFileStep(),
         CompileTexStep(),
     ]
+    validate_frames_step: List[Step] = {
+        FrameDataValidationStep()
+    }
 
     @staticmethod
     def run_job(job: Job, steps: List[Step] = None):

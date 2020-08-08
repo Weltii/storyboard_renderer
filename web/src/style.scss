@@ -1,0 +1,44 @@
+body {
+  background-color: gray;
+}
+
+h1 {
+  text-align: center;
+}
+
+.tab-content {
+  border: none;
+  float: right;
+  height: 800px;
+  width: 50%;
+}
+
+.project-area {
+  background-color: lightgray;
+}
+
+.progress-background {
+  background-color: red;
+  width: 100%;
+  height: 5px;
+
+  @keyframes progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%
+    }
+  }
+
+  .progress-foreground {
+    background-color: green;
+    width: 0%;
+    height: 100%;
+    animation: progress;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+  }
+}

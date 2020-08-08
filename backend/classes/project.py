@@ -45,7 +45,7 @@ class Project(BaseModel):
         if self.storyboard:
             write_file(
                 os.path.join(self.path, "storyboard.json"),
-                json.dumps(self.storyboard.to_dict()),
+                json.dumps(self.storyboard.to_dict(), indent=2),
             )
 
     @staticmethod
