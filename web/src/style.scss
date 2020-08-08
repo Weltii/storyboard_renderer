@@ -6,13 +6,6 @@ h1 {
   text-align: center;
 }
 
-.tab-content {
-  border: none;
-  float: right;
-  height: 800px;
-  width: 50%;
-}
-
 .project-area {
   background-color: lightgray;
 }
@@ -27,7 +20,7 @@ h1 {
       width: 0%;
     }
     to {
-      width: 100%
+      width: 100%;
     }
   }
 
@@ -41,4 +34,58 @@ h1 {
     animation-duration: 10s;
     animation-timing-function: linear;
   }
+}
+
+.tab-bar {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+
+  button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #ddd;
+    }
+
+    &.active {
+      background-color: #ddd;
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+#editor-area {
+  .row {
+    display: flex;
+
+    .column {
+      flex: 50%;
+      height: 100%;
+    }
+  }
+}
+
+#json-editor {
+  background-color: #a0a;
+}
+
+#easy-editor {
+  background-color: #00a;
+}
+
+#pdf-viewer {
+  background-color: #aa0;
 }

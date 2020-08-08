@@ -2,7 +2,7 @@
   "name": "storyboard_renderer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "serve": "parcel src/index.html -p 8080 --open",
     "build:parcel": "parcel build src/index.html",

@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Storyboard Renderer</title>
-</head>
-<body>
-    <h1 id="title">Storyboard Renderer</h1>
-    <div id="project-area"></div>
-    <div id="chuck-norris-area">
+  </head>
+  <body>
+    <header>
+      <h1 id="title">Storyboard Renderer</h1>
+    </header>
+
+    <!-- Project area -->
+
+    <div>
+      project administration
+    </div>
+
+    <div id="project-area">
+      <div id="editor-area">
+        <div class="tab-bar">
+          <button link="json-editor" id="json-editor-link" class="tab-link">
+            JsonEditor
+          </button>
+          <button link="easy-editor" id="easy-editor-link" class="tab-link">
+            EasyGraphicalEditor
+          </button>
+        </div>
+        <div class="row">
+          <div class="column">
+            <div id="json-editor" class="tab-content">
+              json editor
+            </div>
+            <div id="easy-editor" class="tab-content">
+              easy graphical edior
+            </div>
+          </div>
+          <div class="column">
+            <div id="pdf-viewer">
+              pdf viewer
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+
+    <footer>
+      <div id="chuck-norris-area">
         <span id="joke"></span>
         <div class="progress-background">
-            <div class="progress-foreground"></div>
+          <div class="progress-foreground"></div>
         </div>
-    </div>
-    <script src="index.js"></script>
-</body>
+      </div>
+    </footer>
+    <script src="index.ts"></script>
+  </body>
 </html>
