@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
 export class ChuckNorrisWorker {
   intervalTime = 10; // seconds
   url = "https://api.chucknorris.io/jokes/random";
-  progressForeground: HTMLElement
-  jokeElement: HTMLElement
-  timer: any
+  progressForeground: HTMLElement;
+  jokeElement: HTMLElement;
+  timer: any;
 
   constructor() {
     this.progressForeground = document.querySelector(".progress-foreground");

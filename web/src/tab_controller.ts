@@ -1,3 +1,5 @@
+import { KeyHandler } from "./key_handler";
+
 export class TabController {
   currentLinkObject: any = null;
   tabContents: any = {};
@@ -22,13 +24,13 @@ export class TabController {
         };
         this.tabLinks[link.id] = linkObj;
         link.addEventListener("click", () => {
-          this.handleLinkObjectClick(linkObj)
+          this.handleLinkObjectClick(linkObj);
         });
       });
 
     // click on the first tab with setted linkedTo property
     for (let elementName in this.tabLinks) {
-      let element = this.tabLinks[elementName]
+      let element = this.tabLinks[elementName];
       if (element.linkedTo) {
         element.source.click();
         return;
@@ -40,11 +42,13 @@ export class TabController {
     if (linkObject.linkedTo) {
       if (this.currentLinkObject) {
         this.hideTab(this.currentLinkObject.linkedTo);
-        (this.currentLinkObject.source as HTMLElement).classList.remove("active");
+        (this.currentLinkObject.source as HTMLElement).classList.remove(
+          "active"
+        );
       }
       this.showTab(linkObject.linkedTo);
       (linkObject.source as HTMLElement).classList.add("active");
-      this.currentLinkObject = linkObject
+      this.currentLinkObject = linkObject;
     }
   }
 
