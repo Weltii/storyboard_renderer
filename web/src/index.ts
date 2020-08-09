@@ -6,6 +6,7 @@ import { TabController } from "./tab_controller";
 import { AceBrdige } from "./ace_bridge";
 import { SideNav } from "./side_nav";
 import { OverlayMenu } from "./overlay_menu";
+import { ProjectManager } from "./project_manager";
 
 new ChuckNorrisWorker();
 new TabController();
@@ -15,3 +16,4 @@ new SideNav(
   document.querySelector("#open-side-nav")
 );
 new OverlayMenu(document.querySelector("#overlay-menu"));
+new ProjectManager(document.querySelector('#project-manager'));

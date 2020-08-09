@@ -9,10 +9,18 @@
       <a class="close-button">&times;</a>
       <h1 id="title">Storyboard Renderer</h1>
 
-      <div>
-        Current Project: <span>Title</span>
-        <button>Load Project</button>
-        <button>Create Project</button>
+      <div id="project-manager">
+        <label for="project-title">Current Project</label>
+        <input type="text" name="project-title" id="project-title" placeholder="Project name" disabled>
+
+        <label for="project-path">Path</label>
+        <input type="text" name="project-path" id="project-path">
+
+        <div class="buttons">
+          <button id="project-load-button">Load Project</button>
+          <button id="project-create-button">Create Project</button>
+          <button id="project-close-button">Close Project</button>
+        </div>
       </div>
 
       <div id="chuck-norris-area">

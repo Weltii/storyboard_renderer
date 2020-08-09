@@ -28,7 +28,7 @@ export class KeyHandler {
 
   listenOnKey(event: KeyboardEvent) {
     KeyHandler.CTRL_BUTTONS.forEach((key: Key) => {
-      if ((event.ctrlKey && event.key == key.key) || event.keyCode == key.key) {
+      if (event.ctrlKey && (event.key == key.key || event.keyCode == key.key)) {
         event.preventDefault();
         this.callEvent(key);
         return;
@@ -36,8 +36,8 @@ export class KeyHandler {
     });
     KeyHandler.SHIFT_BUTTONS.forEach((key: Key) => {
       if (
-        (event.shiftKey && event.key == key.key) ||
-        event.keyCode == key.key
+        event.shiftKey && (event.key == key.key ||
+        event.keyCode == key.key)
       ) {
         event.preventDefault();
         this.callEvent(key);

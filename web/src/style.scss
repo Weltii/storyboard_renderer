@@ -12,6 +12,26 @@ h1 {
   color: rgb(1, 1, 63);
 }
 
+button, select{
+  border: none;
+  padding: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  &:active {
+    background-color: rgb(149, 149, 149);
+  }
+
+  &.active {
+    background-color: #ddd;
+  }
+}
+
 .progress-background {
   background-color: red;
   border-radius: 2px;
@@ -46,21 +66,9 @@ h1 {
   background-color: #f1f1f1;
 
   button {
-    background-color: inherit;
     height: 100%;
     float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-
-    &:hover {
-      background-color: #ddd;
-    }
-
-    &.active {
-      background-color: #ddd;
-    }
+    padding: 5px;
   }
 }
 
@@ -172,6 +180,12 @@ h1 {
     color: lightgray;
     display: block;
   }
+
+  &> div {
+    padding: 5px;
+    background-color: lightgray;
+    border-radius: 2px
+  }
 }
 
 #overlay-menu {
@@ -190,4 +204,41 @@ h1 {
   &:hover {
     bottom: 0;
   }
+}
+
+#project-manager {
+  color: black;
+  
+  input[type=text] {
+    width: 100%;
+    padding: 8px 5px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  #project-title {
+    color: black;
+    background-color: transparent;
+    border: none;
+  }
+
+  .buttons {
+    display: flex;
+    width: 100%;
+    
+    button {
+      width: 33.333333333%;
+      display: inline-block;
+    }
+  }
+
+  label {
+    &::after {
+      content: ":";
+    }
+  }
+
 }
