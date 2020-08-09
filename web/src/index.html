@@ -5,19 +5,31 @@
     <title>Storyboard Renderer</title>
   </head>
   <body>
-    <header>
+    <div id="left-side-nav" class="side-nav">
+      <a class="close-button">&times;</a>
       <h1 id="title">Storyboard Renderer</h1>
-    </header>
 
-    <!-- Project area -->
+      <div>
+        Current Project: <span>Title</span>
+        <button>Load Project</button>
+        <button>Create Project</button>
+      </div>
 
-    <div>
-      project administration
+      <div id="chuck-norris-area">
+        <span id="joke"></span>
+        <div class="progress-background">
+          <div class="progress-foreground"></div>
+        </div>
+      </div>
     </div>
 
+    <!-- Project area -->
     <div id="project-area">
       <div id="editor-area">
         <div class="tab-bar">
+          <button id="open-side-nav" class="tab-link">
+            Open side nav
+          </button>
           <button link="json-editor" id="json-editor-link" class="tab-link">
             JsonEditor
           </button>
@@ -53,17 +65,6 @@
         </div>
       </div>
     </div>
-
-    <!-- footer -->
-
-    <footer>
-      <div id="chuck-norris-area">
-        <span id="joke"></span>
-        <div class="progress-background">
-          <div class="progress-foreground"></div>
-        </div>
-      </div>
-    </footer>
     <script src="index.ts"></script>
   </body>
 </html>
