@@ -12,6 +12,7 @@ export class AceBrdige {
     this.editor = ace.edit(htmlElementName);
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setTheme("ace/theme/monokai");
+    this.editor.setOption("wrap", true);
 
     this.setText(
       JSON.stringify(

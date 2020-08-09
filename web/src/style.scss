@@ -2,16 +2,14 @@ body {
   background-color: gray;
   margin: 0;
   font-family: sans-serif;
+  height: 100%;
+  overflow: hidden;
 }
 
 h1 {
   text-align: center;
   text-decoration: underline;
   color: rgb(1, 1, 63);
-}
-
-.project-area {
-  background-color: lightgray;
 }
 
 .progress-background {
@@ -147,19 +145,19 @@ h1 {
 
 .side-nav {
   height: 100%;
-  width: 0;
+  width: 35vw;
   position: fixed;
   z-index: 10;
   top: 0;
-  left: 0;
+  left: calc(-35vw - 2rem);
+  padding: 0 1rem;
   background-color: #111;
   color: lightgray;
   overflow-x: hidden;
-  // transition: 0.5s;
+  transition: 0.5s;
 
   &.open {
-    width: 35vw;
-    padding: 0 1rem;
+    left: 0vw;
   }
 
   .close-button {
@@ -173,5 +171,23 @@ h1 {
   h1 {
     color: lightgray;
     display: block;
+  }
+}
+
+#overlay-menu {
+  display: flex;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 20;
+  align-items: center;
+  background-color: lightgray;
+  border-radius: 5px 5px 0 0;
+  padding: 10px;
+  transition: 0.3s;
+
+  &:hover {
+    bottom: 0;
   }
 }
