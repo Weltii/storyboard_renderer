@@ -21,6 +21,7 @@
     "parcel-bundler": "^1.12.4",
     "prettier": "2.0.5",
     "sass": "^1.26.10",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "typescript": "^3.9.7"
   }
 }

@@ -43,11 +43,11 @@ h1 {
 
   button {
     background-color: inherit;
+    height: 100%;
     float: left;
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
     transition: 0.3s;
 
     &:hover {
@@ -62,30 +62,55 @@ h1 {
 
 .tab-content {
   display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
   border-top: none;
 }
 
-#editor-area {
-  .row {
-    display: flex;
+#project-area {
+  height: 500px;
 
-    .column {
-      flex: 50%;
-      height: 100%;
+  #editor-area {
+    height: 100%;
+
+    .tab-bar {
+      height: 5%;
+    }
+
+    .row {
+      display: flex;
+      height: 95%;
+
+      .column {
+        flex: 50%;
+        height: 100%;
+        div {
+          height: 100%;
+        }
+      }
     }
   }
 }
 
 #json-editor {
-  background-color: #a0a;
 }
 
 #easy-editor {
-  background-color: #00a;
+  background-color: lightgray;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  p {
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+  }
 }
 
 #pdf-viewer-tab {
   background-color: #aa0;
+  iframe {
+    border: none !important;
+  }
 }
