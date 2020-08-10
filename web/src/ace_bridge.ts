@@ -4,6 +4,14 @@ import "brace/theme/monokai";
 import { KeyHandler } from "./key_handler";
 
 export class AceBrdige {
+  static defaultText = JSON.stringify(
+    {
+      info: "To edit something, you must load a project!",
+      "info#2": "In the pdf-viewer you can see a example storyboard",
+    },
+    null,
+    "\t"
+  );
   editor: any;
   keyHandler: KeyHandler;
 
@@ -14,26 +22,16 @@ export class AceBrdige {
     this.editor.setTheme("ace/theme/monokai");
     this.editor.setOption("wrap", true);
 
-    this.setText(
-      JSON.stringify(
-        {
-          info: "To edit something, you must load a project!",
-          "info#2": "In the pdf-viewer you can see a example storyboard",
-        },
-        null,
-        "\t"
-      )
-    );
-
-    this.keyHandler.on("ctrl_save", this.saveSession.bind(this));
+    this.setText(AceBrdige.defaultText);
+    // todo move into project_manager
+    // this.keyHandler.on("ctrl_save", this.saveSession.bind(this));
   }
 
-  setText(text: string) {
+  setText(text: string = AceBrdige.defaultText) {
     this.editor.getSession().setValue(text);
   }
 
-  saveSession(): void {
-    console.log("Save ace session!");
-    // TODO do something ;)
+  getText() {
+    return this.editor.getSession().getValue();
   }
 }

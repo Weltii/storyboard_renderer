@@ -1,4 +1,9 @@
-export class OverlayMenu {
+import { BackendService } from "./backend_service";
+import { EditorEventListener } from "./event/EventListener";
+import { EditorEvent, EventType } from "./event/Event";
+import { EditorEventHub } from "./event/EventHub";
+
+export class OverlayMenu implements EditorEventListener {
   root: HTMLElement;
   saveButton: HTMLButtonElement;
   renderButton: HTMLButtonElement;
@@ -26,11 +31,12 @@ export class OverlayMenu {
     );
 
     this.fillLayoutSelection();
+    EditorEventHub.subscribe(this);
   }
 
   onSaveButtonClick() {
-    // Todo add logic!
-    console.warn("onSaveButtonClick is currently not implemented!");
+    console.log("send save event");
+    EditorEventHub.sendEvent(new EditorEvent(EventType.SAVE_EVENT, {}, this));
   }
 
   onRenderButtonClick() {
@@ -44,21 +50,28 @@ export class OverlayMenu {
     this.setLayout(value);
   }
 
-  private fillLayoutSelection() {
-    const layouts = ["EASY_LAYOUT", "MOVIE_LAYOUT"];
-    layouts.forEach((layout: string) => {
-      let option: HTMLOptionElement = document.createElement("option");
-      option.value = layout;
-      option.innerText = layout.replace("_", " ");
-      this.layoutSelection.appendChild(option);
+  private async fillLayoutSelection() {
+    const response = await BackendService.getAllLayouts();
+    if (response.status == 200) {
+      const layouts = response.data;
+      layouts.forEach((layout: string) => {
+        let option: HTMLOptionElement = document.createElement("option");
+        option.value = layout;
+        option.innerText = layout.replace("_", " ");
+        this.layoutSelection.appendChild(option);
 
-      if (!this.currentLayout) {
-        this.setLayout(layout);
-      }
-    });
+        if (!this.currentLayout) {
+          this.setLayout(layout);
+        }
+      });
+    } else {
+      console.error("Something went wrong by getting all layouts!");
+    }
   }
 
   private setLayout(layout: string) {
     this.currentLayout = layout;
   }
+
+  comsumeEvent(event: EditorEvent) {}
 }

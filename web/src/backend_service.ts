@@ -9,7 +9,7 @@ export namespace BackendService {
   const baseUrl = `${protocol}${ip}:${port}/`;
 
   export async function getCurrentProject() {
-    const url = `${baseUrl}project/current`;
+    const url = `${baseUrl}project/current/`;
     let response = await axios
       .get(url)
       .then((response) => {
@@ -22,7 +22,7 @@ export namespace BackendService {
   }
 
   export async function getProject(path: string) {
-    const url = `${baseUrl}project/${path}`;
+    const url = `${baseUrl}project/${path}/`;
     let response = await axios
       .get(url)
       .then((response) => {
@@ -35,7 +35,7 @@ export namespace BackendService {
   }
 
   export async function createProject(path: string) {
-    const url = `${baseUrl}project/${path}`;
+    const url = `${baseUrl}project/${path}/`;
     let response = await axios
       .post(url)
       .then((response) => {
@@ -51,6 +51,45 @@ export namespace BackendService {
     const url = `${baseUrl}project/close/current/`;
     let response = await axios
       .patch(url)
+      .then((response) => {
+        return response;
+      })
+      .catch((reason) => {
+        return reason.response;
+      });
+    return response;
+  }
+
+  export async function saveStoryboard(storyboard: any) {
+    const url = `${baseUrl}project/current/storyboard/`;
+    let response = await axios
+      .patch(url, storyboard)
+      .then((response) => {
+        return response;
+      })
+      .catch((reason) => {
+        return reason.response;
+      });
+    return response;
+  }
+
+  export async function getAllLayouts() {
+    const url = `${baseUrl}layouts/`;
+    let response = await axios
+      .get(url)
+      .then((response) => {
+        return response;
+      })
+      .catch((reason) => {
+        return reason.response;
+      });
+    return response;
+  }
+
+  export async function getLayoutInformation(layoutName: string) {
+    const url = `${baseUrl}layouts/${layoutName}/`;
+    let response = await axios
+      .get(url)
       .then((response) => {
         return response;
       })

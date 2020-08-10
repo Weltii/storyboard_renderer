@@ -26,13 +26,13 @@ def add_endpoints(app: FastAPI):
     render_job_worker = JobWorker()
     project_handler = ProjectHandler()
 
-    @app.get("/project/current", response_model=Project)
+    @app.get("/project/current/", response_model=Project)
     async def get_current_project():
         if project_handler.current_project:
             return project_handler.current_project
         raise HTTPException(status_code=404, detail="No project can be found, please load one!")
 
-    @app.get("/project/{path:path}", response_model=Project)
+    @app.get("/project/{path:path}/", response_model=Project)
     async def load_project(path: str):
         try:
             project = project_handler.load_project(path)
@@ -42,7 +42,7 @@ def add_endpoints(app: FastAPI):
         except FileNotFoundError:
             raise HTTPException(detail=f"Path: '{path}' cannot be found", status_code=404)
 
-    @app.post("/project/{path:path}", response_model=Project)
+    @app.post("/project/{path:path}/", response_model=Project)
     async def create_project(path: str):
         try:
             project = project_handler.create_new_project(path)
@@ -54,7 +54,7 @@ def add_endpoints(app: FastAPI):
         except:
             raise HTTPException(detail=f"Something went completly wrong!", status_code=500)
 
-    @app.patch("/project/current/storyboard", response_model=Job)
+    @app.patch("/project/current/storyboard/", response_model=Job)
     async def overwrite_storyboard(storyboard: Storyboard):
         project = project_handler.current_project
         if not project:
@@ -75,7 +75,7 @@ def add_endpoints(app: FastAPI):
         project_handler.close_project()
         return Response("Project successfully closed", status_code=200)
 
-    @app.patch("/render_project/current", response_model=Job)
+    @app.patch("/render_project/current/", response_model=Job)
     async def render_project():
         if project_handler.current_project:
             job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project_handler.current_project)
