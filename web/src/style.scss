@@ -129,7 +129,6 @@ button, select{
 }
 
 #chuck-norris-area {
-  margin-top: 10px;
   padding: 10px;
   background: lightgray;
   text-align: center;
@@ -160,7 +159,7 @@ button, select{
   left: calc(-35vw - 2rem);
   padding: 0 1rem;
   background-color: #111;
-  color: lightgray;
+  color: black;
   overflow-x: hidden;
   transition: 0.5s;
 
@@ -168,7 +167,7 @@ button, select{
     left: 0vw;
   }
 
-  .close-button {
+  > .close-button {
     position: absolute;
     top: 0;
     right: 25px;
@@ -182,9 +181,10 @@ button, select{
   }
 
   &> div {
+    margin-bottom: 10px;
     padding: 5px;
     background-color: lightgray;
-    border-radius: 2px
+    border-radius: 5px
   }
 }
 
@@ -241,4 +241,53 @@ button, select{
     }
   }
 
+}
+
+#notification-area {
+  position: relative;
+
+  #notification-header {
+    * {
+      display: inline-block;
+    } 
+
+    button {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+    }
+  }
+
+  #notifications {
+    > div {
+      display: block;
+      padding: 5px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      position: relative;
+
+      h3 {
+        margin: 0 0 5px 0;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: transparent;
+      }
+
+      &.log {
+        background: green;
+      }
+      &.error {
+        background: red;
+      }
+      &.warn {
+        background: orange;
+      }
+    }
+  }
 }
