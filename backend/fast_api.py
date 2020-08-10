@@ -51,6 +51,8 @@ def add_endpoints(app: FastAPI):
             raise HTTPException(detail=e.message, status_code=400)
         except FileNotFoundError:
             raise HTTPException(detail=f"Path: '{path}' cannot be found", status_code=404)
+        except:
+            raise HTTPException(detail=f"Something went completly wrong!", status_code=500)
 
     @app.patch("/project/current/storyboard", response_model=Job)
     async def overwrite_storyboard(storyboard: Storyboard):
@@ -64,7 +66,16 @@ def add_endpoints(app: FastAPI):
             project_handler.save_project(project)
         return job
 
-    @app.post("/render_project/current", response_model=Job)
+    @app.patch("/project/close/current/")
+    def close_project():
+        project = project_handler.current_project
+        if not project:
+            raise HTTPException(status_code=404, detail="No project can be found, please load one!")
+        project.save_project()
+        project_handler.close_project()
+        return Response("Project successfully closed", status_code=200)
+
+    @app.patch("/render_project/current", response_model=Job)
     async def render_project():
         if project_handler.current_project:
             job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project_handler.current_project)
