@@ -35,7 +35,6 @@ export class OverlayMenu implements EditorEventListener {
   }
 
   onSaveButtonClick() {
-    console.log("send save event");
     EditorEventHub.sendEvent(new EditorEvent(EventType.SAVE_EVENT, {}, this));
   }
 

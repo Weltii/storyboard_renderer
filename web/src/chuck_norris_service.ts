@@ -12,7 +12,7 @@ export class ChuckNorrisWorker {
     this.jokeElement = document.querySelector("#joke");
     this.getJoke();
     // TODO add a small algo to adjust the visible time based on the word count. Long jokes are hard to read!
-    this.timer = setInterval(this.getJoke.bind(this), this.intervalTime * 1000);
+    // this.timer = setInterval(this.getJoke.bind(this), this.intervalTime * 1000);
   }
 
   distributeJoke(joke) {

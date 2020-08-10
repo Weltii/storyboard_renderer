@@ -11,10 +11,17 @@
 
       <div id="project-manager">
         <label for="project-title">Current Project</label>
-        <input type="text" name="project-title" id="project-title" placeholder="Project name" disabled>
+        <input
+          type="text"
+          name="project-title"
+          id="project-title"
+          placeholder="Project name"
+          autocomplete="off"
+          disabled
+        />
 
         <label for="project-path">Path</label>
-        <input type="text" name="project-path" id="project-path">
+        <input type="text" name="project-path" id="project-path" />
 
         <div class="buttons">
           <button id="project-load-button">Load Project</button>
@@ -25,13 +32,11 @@
 
       <div id="notification-area">
         <div id="notification-header">
-          <h2>Notifications</h2> 
+          <h2>Notifications</h2>
           <button id="notifications-remove-all">RemoveAll</button>
         </div>
-        <hr>
-        <div id="notifications">
-
-        </div>
+        <hr />
+        <div id="notifications"></div>
       </div>
 
       <div id="chuck-norris-area">

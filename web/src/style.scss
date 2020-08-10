@@ -12,7 +12,8 @@ h1 {
   color: rgb(1, 1, 63);
 }
 
-button, select{
+button,
+select {
   border: none;
   padding: 10px;
   outline: none;
@@ -173,6 +174,7 @@ button, select{
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    color: white;
   }
 
   h1 {
@@ -180,11 +182,11 @@ button, select{
     display: block;
   }
 
-  &> div {
+  & > div {
     margin-bottom: 10px;
     padding: 5px;
     background-color: lightgray;
-    border-radius: 5px
+    border-radius: 5px;
   }
 }
 
@@ -208,8 +210,8 @@ button, select{
 
 #project-manager {
   color: black;
-  
-  input[type=text] {
+
+  input[type="text"] {
     width: 100%;
     padding: 8px 5px;
     margin: 8px 0;
@@ -228,7 +230,7 @@ button, select{
   .buttons {
     display: flex;
     width: 100%;
-    
+
     button {
       width: 33.333333333%;
       display: inline-block;
@@ -240,7 +242,6 @@ button, select{
       content: ":";
     }
   }
-
 }
 
 #notification-area {
@@ -249,7 +250,7 @@ button, select{
   #notification-header {
     * {
       display: inline-block;
-    } 
+    }
 
     button {
       position: absolute;

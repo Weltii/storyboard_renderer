@@ -1,7 +1,7 @@
 export enum LogLevel {
   LOG = "log",
   ERROR = "error",
-  WARN = "warn"
+  WARN = "warn",
 }
 
 class Notification {
@@ -14,7 +14,7 @@ class Notification {
     this.root = document.createElement("div");
     this.root.classList.add(logLevel);
     this.removeButton = document.createElement("button");
-    this.removeButton.innerText = "X"
+    this.removeButton.innerText = "X";
     this.removeButton.classList.add("close-button");
     this.removeButton.addEventListener("click", this.remove.bind(this));
 
@@ -51,19 +51,23 @@ export class NotificationHandler {
   constructor() {
     this.root = document.querySelector("#notification-area");
     this.notificationArea = this.root.querySelector("#notifications");
-    this.removeAllButton = this.root.querySelector('#notifications-remove-all');
+    this.removeAllButton = this.root.querySelector("#notifications-remove-all");
     this.removeAllButton.addEventListener("click", () => {
-      this.removeChilds(this.notificationArea)
+      this.removeChilds(this.notificationArea);
     });
   }
 
   private removeChilds(parent: HTMLElement) {
-    while(parent.firstChild) {
+    while (parent.firstChild) {
       parent.removeChild(parent.firstChild);
     }
   }
 
-  addNotification(title: string, content: string, logLevel: LogLevel = LogLevel.LOG) {
+  addNotification(
+    title: string,
+    content: string,
+    logLevel: LogLevel = LogLevel.LOG
+  ) {
     let notification = new Notification(title, content, logLevel);
     this.notificationArea.appendChild(notification.root);
   }
