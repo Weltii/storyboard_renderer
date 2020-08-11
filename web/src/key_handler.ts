@@ -1,3 +1,6 @@
+import { EditorEventHub } from "./event/EventHub";
+import { EditorEvent, EventType } from "./event/Event";
+
 class Key {
   name: string;
   key: number | string;
@@ -9,7 +12,10 @@ class Key {
 }
 
 export class KeyHandler {
-  static CTRL_BUTTONS = [new Key("ctrl_save", 83)];
+  static CTRL_BUTTONS = [
+    new Key("ctrl_save", 83),
+    new Key("ctrl_e", 69)
+  ];
   static SHIFT_BUTTONS = [];
   static instance: KeyHandler;
 
@@ -24,6 +30,13 @@ export class KeyHandler {
 
   private constructor() {
     document.onkeydown = this.listenOnKey.bind(this);
+
+    this.on("ctrl_save", () => {
+      EditorEventHub.sendEvent(new EditorEvent(EventType.SAVE_EVENT, {}))
+    })
+    this.on("ctrl_e", () => {
+      EditorEventHub.sendEvent(new EditorEvent(EventType.RENDER_EVENT, {}))
+    })
   }
 
   listenOnKey(event: KeyboardEvent) {
