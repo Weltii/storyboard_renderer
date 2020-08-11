@@ -13,7 +13,9 @@ storyboard = Storyboard(
 
 class TestLayoutValidationStep(unittest.TestCase):
     def test_run_with_valid_layout(self):
-        job = Job(layout=LayoutName.EASY_LAYOUT.value, project=generate_sample_project())
+        job = Job(
+            layout=LayoutName.EASY_LAYOUT.value, project=generate_sample_project()
+        )
         self.assertTrue(LayoutValidationStep.run(job))
 
     def test_run_with_invalid_layout(self):

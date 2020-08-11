@@ -131,6 +131,15 @@ class TestProject(unittest.TestCase):
         generate_temporary_project_folder(False, False)
         project = Project.generate_new_project(project_folder_path)
         self.assertIsNotNone(project)
+        self.assertTrue(os.path.exists(project.path))
+        self.assertTrue(os.path.exists(project.images_directory))
+        self.assertTrue(
+            os.path.exists(os.path.join(project.images_directory, "sample_image.jpg"))
+        )
+        self.assertTrue(
+            os.path.exists(os.path.join(project.images_directory, "sample_image_2.png"))
+        )
+        self.assertTrue(os.path.exists(project.output_directory))
         remove_temporary_project_folder()
 
     def test_generate_new_project_invalid_directory_is_not_empty(self):

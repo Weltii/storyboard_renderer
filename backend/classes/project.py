@@ -28,9 +28,9 @@ class Project(BaseModel):
     def __init__(self, **data: Any):
         super().__init__(**data)
         self.image_hashes = []
-        self.images_directory = os.path.join(self.path, "images")
+        self.images_directory = os.path.join(self.path, "images/")
         self.generate_image_hashes()
-        self.output_directory = os.path.join(self.path, "output")
+        self.output_directory = os.path.join(self.path, "output/")
 
     def generate_image_hashes(self):
         if not os.path.exists(self.images_directory):
@@ -93,12 +93,26 @@ class Project(BaseModel):
             )
 
         storyboard_path = os.path.join(path, "storyboard.json")
+        image_path = os.path.join(path, "images")
+        output_path = os.path.join(path, "output")
         if not os.path.exists(storyboard_path):
             copyfile(
                 os.path.join(sample_data_path, "sample_storyboard.json"),
                 storyboard_path,
             )
-        os.mkdir(os.path.join(path, "output"))
-        os.mkdir(os.path.join(path, "images"))
+
+        os.mkdir(output_path)
+        os.mkdir(image_path)
+
         storyboard: Storyboard = Storyboard.generate_from_file(storyboard_path)
-        return Project(path=path, storyboard=storyboard)
+        project = Project(path=path, storyboard=storyboard)
+        for image in ["sample_image.jpg", "sample_image_2.png"]:
+            print(os.path.join(sample_data_path, image))
+            print(project.images_directory)
+            copyfile(
+                os.path.join(sample_data_path, image),
+                os.path.join(
+                    image_path, image
+                ),  # add here the path to copy and image! Need for the default project.
+            )
+        return project

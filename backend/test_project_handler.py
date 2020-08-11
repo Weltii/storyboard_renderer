@@ -14,13 +14,17 @@ class TestProjectHandler(unittest.TestCase):
         project = generate_sample_project()
         project_handler.current_project = project
 
-        storyboard = Storyboard.generate_from_file(os.path.join(project.path, "storyboard.json"))
+        storyboard = Storyboard.generate_from_file(
+            os.path.join(project.path, "storyboard.json")
+        )
         self.assertEqual(project.storyboard, storyboard)
 
         project.storyboard.title = "Is now different"
         project_handler.save_project()
 
-        storyboard_after = Storyboard.generate_from_file(os.path.join(project.path, "storyboard.json"))
+        storyboard_after = Storyboard.generate_from_file(
+            os.path.join(project.path, "storyboard.json")
+        )
         self.assertEqual(project.storyboard, storyboard_after)
         self.assertNotEqual(storyboard_after, storyboard)
 
@@ -74,5 +78,5 @@ class TestProjectHandler(unittest.TestCase):
         remove_project(path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
