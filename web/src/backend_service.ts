@@ -98,4 +98,30 @@ export namespace BackendService {
       });
     return response;
   }
+
+  export async function renderProject() {
+    const url = `${baseUrl}render_project/current/`;
+    let response = await axios
+      .patch(url)
+      .then((response) => {
+        return response;
+      })
+      .catch((reason) => {
+        return reason.response;
+      });
+    return response;
+  }
+
+  export async function getBase64Pdf(path: string) {
+    const url = `${baseUrl}pdf/current/pdf/${path}/`;
+    let response = await axios
+      .get(url)
+      .then((response) => {
+        return response;
+      })
+      .catch((reason) => {
+        return reason.response;
+      });
+    return response;
+  }
 }

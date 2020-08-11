@@ -19,6 +19,8 @@ export class ProjectManager implements EditorEventListener {
   aceBridge: AceBrdige;
   overlayMenu: OverlayMenu;
   currentProject: Project;
+  currentLayout: string;
+  isRendering: boolean;
 
   constructor(
     root: HTMLElement,
@@ -57,6 +59,8 @@ export class ProjectManager implements EditorEventListener {
     this.overlayMenu.onSaveButtonClick = this.saveProject.bind(this);
 
     EditorEventHub.subscribe(this);
+
+    this.getDefaultLayout();
   }
 
   onPathChooserChange(event: Event) {
@@ -66,7 +70,6 @@ export class ProjectManager implements EditorEventListener {
 
   async onLoadButtonClick() {
     let response: any = await BackendService.getProject(this.currentPath);
-    console.log(response);
     if (response.status == 200) {
       this.notificationHandler.addNotification(
         "Load project",
@@ -147,12 +150,58 @@ export class ProjectManager implements EditorEventListener {
     }
   }
 
+  async renderProject() {
+    if (this.isRendering) {
+      return;
+    }
+    this.isRendering = true;
+    let response: any = await BackendService.renderProject();
+    if (response.status == 200) {
+      this.getBase64Pdf(response.data.pdf_file_path)
+    } else {
+      this.notificationHandler.addNotification(
+        "Render storyboard failed",
+        `We work on a more detailed solution.\n${response.data.detail}`,
+        LogLevel.ERROR
+      );
+    }
+    this.isRendering = false;
+  }
+
+  async getBase64Pdf(path: string) {
+    let response = await BackendService.getBase64Pdf(path);
+    if (response.status == 200) {
+      EditorEventHub.sendEvent(new EditorEvent(EventType.RENDER_FINISH_EVENT, {
+        pdf_path: response.data.pdf
+      }, this));
+    } else {
+      this.notificationHandler.addNotification(
+        "PDF not found",
+        `No .pdf found, please render again.`,
+        LogLevel.ERROR
+      );
+    }
+  }
+
   comsumeEvent(event: EditorEvent) {
     switch (event.type) {
       case EventType.SAVE_EVENT:
-        console.log("consume event");
         this.saveProject();
         break;
+      case EventType.RENDER_EVENT:
+        this.renderProject();
+        break;
     }
+  }
+
+  private async getDefaultLayout() {
+    const response = await BackendService.getAllLayouts();
+    if (response.status == 200) {
+      const layouts = response.data;
+      this.currentLayout = layouts[0];
+    } else {
+      console.error("Something went wrong by getting all layouts!");
+    }
+    this.currentLayout = "InvalidLayout"
   }
 }

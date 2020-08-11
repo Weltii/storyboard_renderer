@@ -7,9 +7,7 @@ import { AceBrdige } from "./ace_bridge";
 import { SideNav } from "./side_nav";
 import { OverlayMenu } from "./overlay_menu";
 import { ProjectManager } from "./project_manager";
-import { EditorEventHub } from "./event/EventHub";
-import { EditorEvent, EventType } from "./event/Event";
-import { BackendService } from "./backend_service";
+import { PdfViwer } from "./pdf_viewer";
 
 new ChuckNorrisWorker();
 new TabController();
@@ -24,3 +22,4 @@ new ProjectManager(
   aceBridge,
   overlayMenu
 );
+PdfViwer.getInstance();

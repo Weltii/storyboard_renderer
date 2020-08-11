@@ -39,8 +39,8 @@ export class OverlayMenu implements EditorEventListener {
   }
 
   onRenderButtonClick() {
-    // Todo add logic!
-    console.warn("onRenderButtonClick is currently not implemented!");
+    EditorEventHub.sendEvent(new EditorEvent(EventType.RENDER_EVENT, {}, this));
+    this.renderButton.disabled = true;
   }
 
   onLayoutSelectionChange(event: Event) {
@@ -72,5 +72,11 @@ export class OverlayMenu implements EditorEventListener {
     this.currentLayout = layout;
   }
 
-  comsumeEvent(event: EditorEvent) {}
+  comsumeEvent(event: EditorEvent) {
+    switch(event.type) {
+      case EventType.RENDER_FINISH_EVENT:
+        this.renderButton.disabled = false;
+        break;
+    }
+  }
 }
