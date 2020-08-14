@@ -12,10 +12,12 @@ class Notification {
   removeButton: HTMLButtonElement;
   title: HTMLElement;
   content: HTMLSpanElement;
+  logLevel: LogLevel;
 
   constructor(title: string, content: string, logLevel: LogLevel) {
     this.root = document.createElement("div");
     this.root.classList.add(logLevel);
+    this.logLevel = logLevel;
     this.removeButton = document.createElement("button");
     this.removeButton.innerText = "X";
     this.removeButton.classList.add("close-button");
@@ -73,6 +75,6 @@ export class NotificationHandler {
   ) {
     let notification = new Notification(title, content, logLevel);
     this.notificationArea.appendChild(notification.root);
-    EditorEventHub.sendEvent(new EditorEvent(EventType.NEW_NOTIFICATION, {}))
+    EditorEventHub.sendEvent(new EditorEvent(EventType.NEW_NOTIFICATION, notification))
   }
 }

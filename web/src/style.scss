@@ -1,3 +1,5 @@
+$log-color: ("log": green, "warn": orange, "error": red);
+
 body {
   background-color: gray;
   margin: 0;
@@ -71,14 +73,16 @@ select {
     float: left;
     padding: 5px;
 
-    @keyframes highlight {
-      50% {
-        background-color: green;
+    @each $level, $color in $log-color {
+      @keyframes highlight-#{$level} {
+        50% {
+          background-color: $color;
+        }
       }
-    }
-
-    &.highlight {
-      animation: highlight 1s;
+  
+      &.highlight-#{$level} {
+        animation: highlight-#{$level} 1s;
+      }  
     }
   }
 }
@@ -113,8 +117,8 @@ select {
   }
 }
 
-#json-editor {
-}
+// #json-editor {
+// }
 
 #easy-editor {
   background-color: lightgray;
@@ -290,14 +294,10 @@ select {
         background-color: transparent;
       }
 
-      &.log {
-        background: green;
-      }
-      &.error {
-        background: red;
-      }
-      &.warn {
-        background: orange;
+      @each $log, $color in $log-color {
+        &.#{$log} {
+          background-color: $color;
+        }
       }
     }
   }

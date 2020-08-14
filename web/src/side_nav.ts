@@ -27,10 +27,11 @@ export class SideNav implements EditorEventListener{
 
   consumeEvents(event: EditorEvent) {
     if (event.type == EventType.NEW_NOTIFICATION) {
-      this.openButton.classList.add("highlight");
+      const name = `highlight-${event.data["logLevel"]}`
+      this.openButton.classList.add(name);
 
       setTimeout(() => {
-        this.openButton.classList.remove("highlight");
+        this.openButton.classList.remove(name);
       }, 1000)
     }
   }

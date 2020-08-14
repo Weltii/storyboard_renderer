@@ -132,18 +132,23 @@ export class ProjectManager implements EditorEventListener {
   }
 
   async saveProject() {
-    let response: any = await BackendService.saveStoryboard(
-      JSON.parse(this.aceBridge.getText())
-    );
-    if (response.status == 200) {
-      let job = response.data;
-      this.checkErrorsInJob(job);
-    } else {
-      this.notificationHandler.addNotification(
-        "Save project failed",
-        response.data.detail,
-        LogLevel.ERROR
+    try {
+      let response: any = await BackendService.saveStoryboard(
+        JSON.parse(this.aceBridge.getText())
       );
+      if (response.status == 200) {
+        let job = response.data;
+        this.checkErrorsInJob(job);
+      } else {
+        this.notificationHandler.addNotification(
+          "Save project failed",
+          response.data.detail,
+          LogLevel.ERROR
+        );
+      }
+    } catch (e) {
+      console.error(e);
+      this.notificationHandler.addNotification("Save Project", String(e), LogLevel.ERROR)
     }
   }
 
