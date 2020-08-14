@@ -1,3 +1,6 @@
+import { EditorEventHub } from "./event/EventHub";
+import { EditorEvent, EventType } from "./event/Event";
+
 export enum LogLevel {
   LOG = "log",
   ERROR = "error",
@@ -70,5 +73,6 @@ export class NotificationHandler {
   ) {
     let notification = new Notification(title, content, logLevel);
     this.notificationArea.appendChild(notification.root);
+    EditorEventHub.sendEvent(new EditorEvent(EventType.NEW_NOTIFICATION, {}))
   }
 }

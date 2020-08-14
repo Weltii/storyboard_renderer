@@ -180,7 +180,7 @@ export class ProjectManager implements EditorEventListener {
     }
   }
 
-  comsumeEvent(event: EditorEvent) {
+  consumeEvents(event: EditorEvent) {
     switch (event.type) {
       case EventType.SAVE_EVENT:
         this.saveProject();

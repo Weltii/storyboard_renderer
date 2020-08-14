@@ -20,7 +20,7 @@ export class EditorEventHub {
   static sendEvent(editorEvent: EditorEvent) {
     EditorEventHub.listeners.forEach((listener: EditorEventListener) => {
       if (editorEvent.sender != listener) {
-        listener.comsumeEvent(editorEvent);
+        listener.consumeEvents(editorEvent);
       }
     });
   }

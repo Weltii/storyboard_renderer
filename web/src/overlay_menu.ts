@@ -72,7 +72,7 @@ export class OverlayMenu implements EditorEventListener {
     this.currentLayout = layout;
   }
 
-  comsumeEvent(event: EditorEvent) {
+  consumeEvents(event: EditorEvent) {
     switch(event.type) {
       case EventType.RENDER_FINISH_EVENT:
         this.renderButton.disabled = false;

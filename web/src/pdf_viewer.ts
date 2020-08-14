@@ -22,7 +22,7 @@ export class PdfViwer implements EditorEventListener{
     this.root.src = path;
   }
 
-  comsumeEvent(event: EditorEvent) {
+  consumeEvents(event: EditorEvent) {
     if (event.type == EventType.RENDER_FINISH_EVENT) {
       this.setPdf(event.data["pdf_path"]);
     }

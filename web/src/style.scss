@@ -70,6 +70,16 @@ select {
     height: 100%;
     float: left;
     padding: 5px;
+
+    @keyframes highlight {
+      50% {
+        background-color: green;
+      }
+    }
+
+    &.highlight {
+      animation: highlight 1s;
+    }
   }
 }
 

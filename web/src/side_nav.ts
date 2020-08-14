@@ -1,4 +1,8 @@
-export class SideNav {
+import { EditorEventListener } from "./event/EventListener";
+import { EditorEvent, EventType } from "./event/Event";
+import { EditorEventHub } from "./event/EventHub";
+
+export class SideNav implements EditorEventListener{
   private root: HTMLElement;
   private openButton: HTMLElement;
   private closeButton: HTMLElement;
@@ -9,6 +13,8 @@ export class SideNav {
     this.openButton.addEventListener("click", this.open.bind(this));
     this.closeButton = navRoot.querySelector(".close-button");
     this.closeButton.addEventListener("click", this.close.bind(this));
+
+    EditorEventHub.subscribe(this);
   }
 
   open() {
@@ -17,5 +23,15 @@ export class SideNav {
 
   close() {
     this.root.classList.remove("open");
+  }
+
+  consumeEvents(event: EditorEvent) {
+    if (event.type == EventType.NEW_NOTIFICATION) {
+      this.openButton.classList.add("highlight");
+
+      setTimeout(() => {
+        this.openButton.classList.remove("highlight");
+      }, 1000)
+    }
   }
 }
