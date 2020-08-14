@@ -3,8 +3,8 @@ from backend.classes.step import Step
 from backend.layouts.Layouts import Layouts
 from backend.utils.enums import Status, StepType
 
-missing_data = "Frame_{}: {} is missing"
-wrong_type = "Frame_{}: {} is from type {} instead of {}"
+missing_data = "{} is missing"
+wrong_type = "{} is from type {} instead of {}"
 
 
 class FrameDataValidationStep(Step):
@@ -20,21 +20,21 @@ class FrameDataValidationStep(Step):
                 if not frame.get(data, False):
                     job.status = Status.INVALID_DATA
                     if not job.status_data.get("missing_data", False):
-                        job.status_data["missing_data"] = dict()
-                    job.status_data["missing_data"][str(index)] = missing_data.format(
-                        str(index), data
-                    )
+                        job.status_data["missing_data"] = []
+                    job.status_data["missing_data"].append(dict(
+                        index=index,
+                        frame=index + 1,
+                        message=missing_data.format(data)
+                    ))
                 else:
                     type_a = type(frame.get(data))
                     type_b = required_data.get(data)
                     if type_a is not type_b:
                         job.status = Status.INVALID_DATA
                         if not job.status_data.get("wrong_data_type", False):
-                            job.status_data["wrong_data_type"] = dict()
-                        job.status_data["wrong_data_type"][
-                            # the structure with a number as string in the dict is dirty
-                            # todo Change number as string inside the dict!
-                            str(index)
-                        ] = wrong_type.format(
-                            index, data, type_a.__name__, type_b.__name__
-                        )
+                            job.status_data["wrong_data_type"] = []
+                        job.status_data["wrong_data_type"].append(dict(
+                            index=index,
+                            frame=index + 1,
+                            message=wrong_type.format(data, type_a.__name__, type_b.__name__)
+                        ))

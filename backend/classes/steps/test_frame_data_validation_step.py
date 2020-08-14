@@ -31,25 +31,32 @@ class TestFrameDataValidationStep(unittest.TestCase):
         self.assertEqual(job.status, Status.VALID)
 
     def test_run_data_is_missing(self):
-        error_layout = "Frame_{}: {} is missing"
+        error_layout = "{} is missing"
+        expected_data = [
+            dict(index=0, message=error_layout.format("image_description")),
+            dict(index=1, message=error_layout.format("image")),
+            dict(index=2, message=error_layout.format("image")),
+            dict(index=2, message=error_layout.format("image_description")),
+        ]
         project = generate_project()
         job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
         job.project.storyboard.frames.append(dict(image="path_to_file"))
         job.project.storyboard.frames.append(
             dict(image_description="image_description")
         )
+        job.project.storyboard.frames.append(dict())
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
-        self.assertEqual(
-            job.status_data["missing_data"]["0"],
-            error_layout.format(0, "image_description"),
-        )
-        self.assertEqual(
-            job.status_data["missing_data"]["1"], error_layout.format(1, "image")
-        )
+        for index in range(len(expected_data)):
+            ed = expected_data[index]
+            self.assertEqual(job.status_data["missing_data"][index], dict(
+                index=ed["index"],
+                frame=ed["index"] + 1,
+                message=ed["message"]
+            ))
 
     def test_run_data_has_wrong_type(self):
-        error_layout = "Frame_{}: {} is from type {} instead of {}"
+        error_layout = "{} is from type {} instead of {}"
         project = generate_project()
         job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
         job.project.storyboard.frames.append(
@@ -61,17 +68,25 @@ class TestFrameDataValidationStep(unittest.TestCase):
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
         self.assertEqual(
-            job.status_data["wrong_data_type"]["0"],
-            error_layout.format(0, "image", int.__name__, str.__name__),
+            job.status_data["wrong_data_type"][0],
+            dict(
+                index=0,
+                frame=1,
+                message=error_layout.format("image", int.__name__, str.__name__)
+            )
         )
         self.assertEqual(
-            job.status_data["wrong_data_type"]["1"],
-            error_layout.format(1, "image_description", int.__name__, str.__name__),
+            job.status_data["wrong_data_type"][1],
+            dict(
+                index=1,
+                frame=2,
+                message=error_layout.format("image_description", int.__name__, str.__name__)
+            )
         )
 
     def test_run_data_mixed_errors(self):
-        wrong_type_error = "Frame_{}: {} is from type {} instead of {}"
-        missing_data_error = "Frame_{}: {} is missing"
+        wrong_type_error = "{} is from type {} instead of {}"
+        missing_data_error = "{} is missing"
         project = generate_project()
         job = Job(layout=LayoutName.EASY_LAYOUT.value, project=project)
         job.project.storyboard.frames.append(dict(image=120))
@@ -81,12 +96,20 @@ class TestFrameDataValidationStep(unittest.TestCase):
         FrameDataValidationStep.run(job)
         self.assertEqual(job.status, Status.INVALID_DATA)
         self.assertEqual(
-            job.status_data["missing_data"]["0"],
-            missing_data_error.format(0, "image_description"),
+            job.status_data["missing_data"][0],
+            dict(
+                index=0,
+                frame=1,
+                message=missing_data_error.format("image_description", int.__name__, str.__name__)
+            )
         )
         self.assertEqual(
-            job.status_data["wrong_data_type"]["1"],
-            wrong_type_error.format(1, "image_description", int.__name__, str.__name__),
+            job.status_data["wrong_data_type"][1],
+            dict(
+                index=1,
+                frame=2,
+                message=wrong_type_error.format("image_description", int.__name__, str.__name__)
+            )
         )
 
 

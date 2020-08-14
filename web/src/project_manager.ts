@@ -136,11 +136,8 @@ export class ProjectManager implements EditorEventListener {
       JSON.parse(this.aceBridge.getText())
     );
     if (response.status == 200) {
-      this.notificationHandler.addNotification(
-        "Save project",
-        "Project successfuly saved",
-        LogLevel.LOG
-      );
+      let job = response.data;
+      this.checkErrorsInJob(job);
     } else {
       this.notificationHandler.addNotification(
         "Save project failed",
@@ -203,5 +200,60 @@ export class ProjectManager implements EditorEventListener {
       console.error("Something went wrong by getting all layouts!");
     }
     this.currentLayout = "InvalidLayout"
+  }
+
+  private checkErrorsInJob(job: any) {
+      switch (job.status) {
+        case "valid":
+          this.notificationHandler.addNotification(
+            "Save project",
+            "Project successfuly saved",
+            LogLevel.LOG
+          );
+          break;
+        case "invalid_data": 
+          const wrongData = job.status_data.wrong_data_type || null;
+          const missingData = job.status_data.missing_data || null;
+          let message = "Your data are invalid:\n"
+          if (wrongData) {
+            message += "Wrong data:\n"
+            wrongData.forEach(element => {
+              message += `Frame ${element.frame}: ${element.message}\n`;
+            });
+          }
+          if (missingData) {
+            message += "Missing data:\n"
+            missingData.forEach(element => {
+              message += `Frame ${element.frame}: ${element.message}\n`;
+            });
+          }
+          this.notificationHandler.addNotification(
+            "Save Project",
+            message,
+            LogLevel.ERROR
+          )
+          break;
+        case "generate_tex_error":
+          this.notificationHandler.addNotification(
+            "Save Project",
+            "Something goes wrong at the .tex file generation.",
+            LogLevel.ERROR
+          )
+          break;
+        case "compile_pdf_error":
+          this.notificationHandler.addNotification(
+            "Save Project",
+            "The .tex file cannot compile.",
+            LogLevel.ERROR
+          )
+          break;
+        case "unknown_error":
+          this.notificationHandler.addNotification(
+            "Save Project",
+            "Unknown error",
+            LogLevel.ERROR
+          )
+          break;
+      }
   }
 }
